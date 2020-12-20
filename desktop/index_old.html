@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta property="og:type" content="website">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="968">
+    <meta property="og:image:height" content="504">
+    <meta name="description" content="ZESP zigbee2wifi gateway">
+    <meta name="keywords" content="xiaomi gateway,firmware,ZESP,ZIGBEE,zigbee,TI,NXP, cc2530,cc2531,cc2538,jn5169">
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <link href="metro/css/metro-all.css" rel="stylesheet">
+    <link href="descktop.css" rel="stylesheet">
+
+    <title>ZESP</title>
+  <style type="text/css">
+    #mynetwork {
+      width: 100%;
+      height: 100%;
+      border: 1px solid lightgray;
+    }
+	div.vis-network {
+	background-color: #8a948b;
+	opacity: .98;
+	}
+  </style>
+    <style>
+        .window-area {
+            background: url("images/anime-background-images-1.jpg") center center no-repeat;
+            background-size: cover;
+        }
+        #charm {
+            height: calc(100vh - 40px);
+            width: 290px;
+            background-color: #1F4F5D;
+        }
+    </style>
+</head>
+<body class="m4-cloak">
+    <div data-role="charms" data-position="right" id="charm" class="p-4">
+        <div class="h-100 d-flex flex-column">
+            <div id="notifies_bar" class="charm-top">
+                <div class="text-center m-4">
+                    <span>Google Chrome</span>
+                </div>
+
+
+                <div class="charm-notify">
+                    <img class="icon" src="img/zesp.png">
+                    <div class="title">About ZESP</div>
+                    <div class="secondary">blablabla</div>
+                    <div class="secondary">14:20 &bull; www.mygateway.ru</div>
+                </div>
+
+                <div class="text-center m-4">
+                    <span>Information</span>
+                </div>
+
+                <div class="charm-notify">
+                    <span class="icon mif-info"></span>
+                    <div class="title">You have a news</div>
+                    <div class="content">news body</div>
+                </div>
+			</div>
+
+
+            
+
+            <div class="charm-bottom mt-auto">
+                <div class="clear mt-4 reduce-1">
+                    <span onclick="javascript:Collapse();"class="place-left c-pointer">Collapse</span>
+                    <span onclick="javascript:Clear_notifies();"class="place-right c-pointer">Clear notifies</span>
+                </div>			
+                <div class="d-flex">
+                    <div class="charm-tile">
+                        <span class="icon mif-wifi-full"></span>
+                        <span class="caption">Join</span>
+                    </div>
+                    <div class="charm-tile">
+                        <span class="icon mif-cog"></span>
+                        <span class="caption">Preferences</span>
+                    </div>
+                    <div class="charm-tile">
+                        <span class="icon mif-bluetooth"></span>
+                        <span class="caption">Not connected</span>
+                    </div>
+                    <!-- <div class="charm-tile active"> -->
+                        <!-- <span class="icon mif-rocket"></span> -->
+                        <!-- <span class="caption">Fly mode</span> -->
+                    <!-- </div> -->
+                </div>
+
+                <div class="d-flex">
+                    <div class="charm-tile">
+                        <span class="icon mif-list2"></span>
+                        <span class="caption">Device list</span>
+                    </div>
+                    <div class="charm-tile">
+                        <span class="icon mif-widgets"></span>
+                        <span class="caption">Network</span>
+                    </div>
+                    <div class="charm-tile">
+                        <span class="icon mif-tablet-landscape"></span>
+                        <span class="caption"onClick="fsgo(document.documentElement);Metro.charms.close('#charm');return false;">Fullscreen mode</span>
+                    </div>					
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="desktop">
+        <div id="rstol" class="window-area">
+		<!-- blablabla
+		
+            <div class="tiles-grid tiles-group size-2 fg-white" data-group-title="Images">
+                <div data-role="tile" data-cover="./images/me.jpg">
+                    <span class="branding-bar">Sergey Pimenov</span>
+                </div>
+                <div data-role="tile" data-effect="animate-fade" data-effect-duration="1000">
+                    <div class="slide" data-cover="./images/me2.jpg"></div>
+                    <div class="slide" data-cover="./images/me.jpg"></div>
+                    <div class="slide" data-cover="./images/me3.jpg"></div>
+                    <span class="branding-bar">Gallery</span>
+                </div>
+                <div data-role="tile" data-size="wide" data-effect="animate-slide-left">
+                    <div class="slide" data-cover="./images/1.jpg"></div>
+                    <div class="slide" data-cover="./images/2.jpg"></div>
+                    <div class="slide" data-cover="./images/3.jpg"></div>
+                    <div class="slide" data-cover="./images/4.jpg"></div>
+                    <div class="slide" data-cover="./images/5.jpg"></div>
+                    <span class="branding-bar">Gallery</span>
+                </div>
+                <div data-role="tile" data-size="wide" data-effect="image-set">
+                    <img src="./images/jeki_chan.jpg">
+                    <img src="./images/shvarcenegger.jpg">
+                    <img src="./images/vin_d.jpg">
+                    <img src="./images/jolie.jpg">
+                    <img src="./images/jek_vorobey.jpg">
+                </div>
+            </div>		
+
+		
+		blablabla -->
+		<div id="mapnetwork"></div>
+		</div>
+        <div class="task-bar">
+            <div class="task-bar-section">
+                <button class="task-bar-item" id="start-menu-toggle"><span class="mif-windows"></span></button>
+                <div class="start-menu" data-role="dropdown" data-toggle-element="#start-menu-toggle">
+                    <div class="start-menu-inner h-100">
+                        <div class="explorer">
+                            <ul class="v-menu w-100 bg-brandColor2 fg-white">
+                                <li><a onclick="getDeviceList();drawListDev();">Device Manager</a></li>	
+                                <li><a onclick="drawListFw();">Firmware Manager</a></li>
+	                            <li><a onclick="createWindowYoutube()">Youtube window</a></li>
+	                            <!-- <li><a onclick="drawMap();">Network</a></li>-->
+							   <li><a onclick="createScriptWindow()">Sript</a></li>	                               
+							   <li><a onclick="createLogWindow()">Log</a></li>	
+                                <li><a onclick="createSetupWindow()">Setup</a></li>
+								<li><a onclick="localStorage.clear();document.location.reload(true);">Reset</a></li>									
+                                <!-- <li><a onclick="createWindowWithCustomButtons()">Custom buttons</a></li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task-bar-section tasks"></div>
+            <div class="task-bar-section system-tray ml-auto">
+
+                <span style="line-height: 40px;" class="pr-4">
+                    <span data-role="clock" class="w-auto fg-white reduce-1" data-show-date="false"></span>
+                </span>
+                <button class="task-bar-item" id="open-charm" onclick="openCharm()"><span class="mif-comment"></span></button>				
+				
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-9" id="blocklyDiv">
+			</div>
+            <div class="col-3">
+               <button id="showCode" class="btn btn-success">JavaScript</button>
+               <button id="showXML" class="btn btn-primary">XML</button>
+				 <pre style="text-align: justify;"><textarea class="xml" id='rep_win'> </textarea></pre>
+				 <!-- <button id="saveXML" class="btn btn-primary">test</button> -->
+                <pre style="text-align: justify;"><code class="JavaSciprt" id='jsCode'></code></pre>
+                <!-- <pre style="text-align: justify;"></pre><textarea id='xmlCode'></textarea>	 -->
+				<pre style="text-align: justify;"><textarea class="xml" id='xmlCode'> </textarea></pre>
+            </div>
+        </div>
+    </div>	
+
+
+
+     <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="metro/js/metro.js"></script>
+<script>
+    m4q.global(); // $ - now is a m4q constructor
+    m4q.noConflict(); // $ - now is a jquery constructor
+</script>
+    <script src="desktop.js"></script>
+	
+	<script type="text/javascript" src="vis-network.min.js"></script>	
+    <script src="zmap.js"></script>	
+    <script src="zb_lib.js"></script>
+	<script src="js/iro.min.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/vs.min.css" rel="stylesheet"/>
+	<script>hljs.initHighlightingOnLoad();</script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/gh/google/blockly@latest/blockly_compressed.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/google/blockly@latest/blocks_compressed.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/google/blockly@latest/javascript_compressed.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/google/blockly@latest/msg/js/en.js"></script>
+	<script src="field_oid.js"></script> 
+    <script src="workspace.js" defer></script>	
+	
+	
+	
+	
+	
+	
+<!-- <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>Yandex.Metrika counter -->
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(54019480, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+   
+
+<noscript><div><img src="https://mc.yandex.ru/watch/54019480" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+    <!-- ads-script -->
+	<div><img src="https://mc.yandex.ru/watch/54019480" style="position:absolute; left:-9999px;" alt="" /></div>
+</body>
+</html>

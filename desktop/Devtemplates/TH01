@@ -1,0 +1,32 @@
+  {
+    "Device": "A835",
+    "Name": "",
+    "IEEE": "00124B001F6743D8",
+    "ModelId": "TH01",
+    "EP": {
+      "01": {
+        "PrfId": "0104",
+        "ClI": [
+          "0000",
+          "0003",
+          "0402",
+          "0405",
+          "0001"
+        ],
+        "ClO": [
+          "0003"
+        ]
+      }
+    },
+	"ClusterToBind": [ "0001", "0402", "0405"],
+    "ConfigureReporting": {
+		    "0402": {"Attributes": { "0000": {"DataType": "29", "MinInterval":"0384", "MaxInterval":"0E10", "TimeOut":"0FFF","Change":"0001"}}},
+		    "0405": {"Attributes": { "0000": {"DataType": "21", "MinInterval":"0384", "MaxInterval":"0E10", "TimeOut":"0FFF","Change":"0001"}}}
+	},
+  	"ReadAttributes": {
+        	 "0000": [ "0000", "0001", "0002", "0003", "0004", "0005" ] ,
+        	 "0001": [ "0020", "0021" ] ,
+		 "0402": [  ],
+		 "0405": [  ]
+	}
+  }

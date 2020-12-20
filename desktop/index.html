@@ -1,0 +1,2291 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><title>ZESP</title>
+<script src="js/iro.min.js"></script>
+<link rel="stylesheet" href="js/jquery.mobile-1.4.5.min.css" />
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script> -->
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="zb_lib.js"></script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
+<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>    
+
+      
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/vs.min.css" rel="stylesheet"/>
+   
+	<script>hljs.initHighlightingOnLoad();</script>
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"> -->
+	<script src="https://cdn.jsdelivr.net/gh/google/blockly@latest/blockly_compressed.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/google/blockly@latest/blocks_compressed.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/google/blockly@latest/javascript_compressed.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/google/blockly@latest/msg/js/en.js"></script>
+	<script src="field_oid.js"></script> 
+    <script src="workspace.js" defer></script>
+<script src="//rawgit.com/ngryman/jquery.finger/v0.1.2/dist/jquery.finger.js"></script>	
+<style>
+a.block {
+	background-color:red;
+	width:200px;
+	height:50px;
+	line-height:50px;
+	text-align:center;
+}
+.hid { display: none }
+        
+#selector {
+font-size: 11px;
+}
+#blocklyDiv {
+ height: 90vh;
+float: left;
+display: block;
+width: 80%;
+
+margin: 2px;
+}
+
+#blocklyDiv2 {
+float: left;
+display: block;
+width: 18%;
+border: 1px;
+margin: 2px;
+}	
+.ui-popup-container, .ui-popup {
+    height: 95%;
+    width: 95%;
+    position: absolute;
+    top: 0;
+    left:0;
+}
+
+
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: sans-serif;
+}
+
+/* ---- button ---- */
+
+.button {
+  display: inline-block;
+  padding: 0.5em 1.0em;
+  background: #EEE;
+  border: none;
+  border-radius: 7px;
+  background-image: linear-gradient( to bottom, hsla(0, 0%, 0%, 0), hsla(0, 0%, 0%, 0.2) );
+  color: #222;
+  font-family: sans-serif;
+  font-size: 16px;
+  text-shadow: 0 1px white;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #8CF;
+  text-shadow: 0 1px hsla(0, 0%, 100%, 0.5);
+  color: #222;
+}
+
+.button:active,
+.button.is-checked {
+  background-color: #28F;
+}
+
+.button.is-checked {
+  color: white;
+  text-shadow: 0 -1px hsla(0, 0%, 0%, 0.8);
+}
+
+.button:active {
+  box-shadow: inset 0 1px 10px hsla(0, 0%, 0%, 0.8);
+}
+
+/* ---- button-group ---- */
+
+.button-group {
+  margin-bottom: 20px;
+}
+
+.button-group:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.button-group .button {
+  float: left;
+  border-radius: 0;
+  margin-left: 0;
+  margin-right: 1px;
+}
+
+.button-group .button:first-child { border-radius: 0.5em 0 0 0.5em; }
+.button-group .button:last-child { border-radius: 0 0.5em 0.5em 0; }
+
+/* ---- isotope ---- */
+
+.dev_container {
+  border: 1px solid #333;
+background: #000;
+}
+
+/* clear fix */
+.dev_container:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- .element-item ---- */
+
+.element-item {
+  border-radius: 10px;
+  position: relative;
+  float: left;
+  width: 77px;
+  height: 77px;
+  margin: 2px;
+  padding: 8px;
+  background: #888;
+  color: #262524;
+}
+
+.element-item > * {
+  margin: 0;
+  padding: 0;
+}
+
+.element-item .name {
+  position: absolute;
+  left: 8px;
+  top: 40px;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 10px;
+  font-weight: normal;
+  color: white;
+}
+
+.element-item .d_icon {
+  position: absolute;
+  left: 4px;
+  top: 14px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+.element-item .d_lgi {
+  position: absolute;
+  right: 10px;
+  top: 3px;
+}
+
+.element-item .d_value {
+  position: absolute;
+  left: 7px;
+  top: 55px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+}
+.element-item--width2 { width: 144px; }
+.element-item--height2 { height: 144px; }
+
+
+.element-item.alkali          { background: #F00; background: hsl(   0, 100%, 50%); }
+.element-item.alkaline-earth  { background: #F80; background: hsl(  36, 100%, 50%); }
+.element-item.lanthanoid      { background: #FF0; background: hsl(  72, 100%, 50%); }
+.element-item.actinoid        { background: #0F0; background: hsl( 108, 100%, 50%); }
+.element-item.transition      { background: blue;}
+.element-item.post-transition { background: #0FF; background: hsl( 180, 100%, 50%); }
+.element-item.metalloid       { background: #08F; background: hsl( 216, 100%, 50%); }
+.element-item.diatomic        { background: #00F; background: hsl( 252, 100%, 50%); }
+.element-item.halogen         { background: #F0F; background: hsl( 288, 100%, 50%); }
+.element-item.noble-gas       { background: #F08; background: hsl( 324, 100%, 50%); }
+	
+</style>
+<script>
+$.mobile.ignoreContentEnabled = true
+var HAdev={
+  "config": {
+    "friendly_name string": "",
+    "entity_picture": "",
+    "icon": "",
+    "assumed_state": true,
+    "unit_of_measurement": "",
+    "initial_state": "",
+    "device_type": {
+      "binary_sensor": [
+        {"device_class": "battery" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "battery_charging" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "cold" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "connectivity" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "door" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "garage_door" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "gas" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "heat" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "light" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "lock" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "moisture" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "motion" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "moving" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "occupancy" , "off_delay": "60" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "opening" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "plug" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "power" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "presence" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "problem" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "safety" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "smoke" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "sound" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "vibration" , "payload_on": "1" , "payload_off": "0"},
+        {"device_class": "window" , "payload_on": "1" , "payload_off": "0"}
+      ],
+      "sensor": [
+        {"device_class": "battery"},
+        {"device_class": "humidity"},
+        {"device_class": "illuminance"},
+        {"device_class": "signal_strength"},
+        {"device_class": "temperature"},
+        {"device_class": "power"},
+        {"device_class": "pressure"},
+        {"device_class": "timestamp"},
+        {"device_class": "current"},
+        {"device_class": "energy"},
+        {"device_class": "power_factor"},
+        {"device_class": "voltage"}
+      ],
+      "cover": [
+        "None",
+        "awning",
+        "blind",
+        "curtain",
+        "damper",
+        "door",
+        "garage",
+        "gate",
+        "shade",
+        "shutter",
+        {"device_class": "window" , "payload_on": "1" , "payload_off": "0"}
+      ],
+	  "switch":[],
+	  "outlet":[],
+	  "livolo_swith1ch":[],
+	  "light":[],	  
+	  "light_rgb":[],	  
+	  "climate":[],	  
+	  "lock":[],	  
+	  "alarm_control_panel":[],	  
+	  "fan":[]	  
+    }
+  }
+}
+
+
+
+var isMobile = {Android: function() {return navigator.userAgent.match(/Android/i);},
+    BlackBerry: function() {return navigator.userAgent.match(/BlackBerry/i);},
+    iOS: function() {return navigator.userAgent.match(/iPhone|iPad|iPod/i);},Opera: function(){return navigator.userAgent.match(/Opera Mini/i);},Windows: function() {return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
+    },any: function() {return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());}};
+	
+
+var tableDevice ;
+
+//localStorage.setItem('name','Chris');
+//  8	1	2		2	xz
+//IEEE:EP:Cluster:NWK:value
+
+self = this;   
+var jsconfig;
+var groups;
+var h = window.screen.availHeight;
+var w = window.screen.availWidth;
+
+var cL; //JSON netConfig
+
+var location;
+
+ 
+
+	
+function getIndex(array, key, value) {
+        var found = false;
+        var i = 0;
+        while (i<array.length && !found) {
+          if (array[i][key]==value) {
+            found = true;
+            return i;
+          }
+          i++;
+        }
+		i=-1;
+};      	
+
+var Mi_lamp;
+    self.deviceList;
+	self.prevDeviceList;
+	self.AddNewDevMode = false; 
+	addDevice = function(sel) {  }; 
+    getDeviceList = function(){WSsend('getDeviceList');};
+    get_Mi_lamp = function(){WSsend('get_Mi_lamp');};
+	
+    updatefw = function(){WSsend('cmdupdatefw');};	
+    //getConfig = function(){WSsend('loadConfig');};	
+	loadfwlist = function(){WSsend('loadfwlist');};
+	
+	
+	var WSzesp='ws://' + window.location.hostname + ':81';
+	//var WSzesp='ws://192.168.1.8:81';	
+
+testWebSocket();
+	function testWebSocket() {
+         websocket = new WebSocket(WSzesp);
+			
+         websocket.onopen = function(evt) {
+            onOpen(evt)
+         };
+		
+         websocket.onmessage = function(evt) {
+            onMessage(evt)
+         };
+		
+         websocket.onerror = function(evt) {
+            onError(evt)
+         };
+      }
+
+
+
+		
+      function onOpen(evt) {
+         writeToScreen("CONNECTED");
+      //   doSend("WebSocket rocks");
+      $.mobile.loading("hide");
+	  }
+		
+      function onMessage(evt) {
+        // writeToScreen('<span style = "color: blue;">RESPONSE: ' +
+        //    evt.data+'</span>'); websocket.close();
+      parseSocket(evt);
+	  }
+
+      function onError(evt) {
+        // writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+      console.log("socket error");
+	  $.mobile.loading("show");
+	  //checkWS;
+	  }
+		
+      function WSsend(message) {
+        // writeToScreen("SENT: " + message);
+		 websocket.send(message);
+      }
+		
+      function writeToScreen(message) {
+    /*     var pre = document.createElement("p"); 
+         pre.style.wordWrap = "break-word"; 
+         pre.innerHTML = message; output.appendChild(pre);*/
+      }
+
+
+
+	function h2d(hex) {return parseInt(hex);}	
+	
+	var checkWS = setInterval(function(){if(websocket.readyState!=1){testWebSocket();}}, 5000);
+
+	parseSocket = function(msg){
+			// прием данных
+	console.log(msg);
+	z=msg.data.split("|");
+	if(z[0]==="new_dev"){WSsend('getDeviceList');}
+	if(z[0]==="init_ok"){$.mobile.loading("hide");}
+	if(z[0]==="retConfig"){drawConfig(z[1]);}
+	if(z[0]==="jsconfig") {drawjsconfig(z[1]);}
+	if(z[0]==="/location.json") {self.drawLocation(z[1]);}
+	if(z[0]==="/groups.json") {
+		groups=JSON.parse(z[1])
+		draw_groups(); 
+		}	
+
+	
+	if(z[0]==="AF_incoming"){self.zcl_parse(z[1]);}
+	if(z[0]==="alldev"){
+					try {self.deviceList =JSON.parse(z[1]); self.drawList();} catch (exception) {};
+		//if (isMobile=="Mobile"){
+			tableDevice=self.deviceList;
+		
+		//}		
+			
+	}		  
+	if(z[0]==="Mi_lamp"){
+	try {Mi_lamp =JSON.parse(z[1]);} catch (exception) {};
+
+	}	
+	
+	if(z[0]==="join"){
+	var htmlj=$('#joinstatus').append(z[1]);
+	
+	
+	
+	
+	$('#joinstatus').trigger("create");
+	
+	}
+	
+	if(z[0]==="ZD_RSP"){
+	var li="<div>"+z[3]+"</div><div>EP: "+z[1]+" Status: "+z[2]+"</div>"
+		li +='<a href="#"  data-role="button" id="jqDone" data-rel="back" >Done</a>';
+		$('#progress_v').html(li).trigger("create");
+	
+	}	
+	
+	if(z[0]==="ArBle"){ble_parse(z[1]);}
+		
+		
+	if(z[0]==="DevBle"){DevBle_parse(z[1]);}
+		
+		
+	
+	if(z[0]==="wfdl"){$('#txtprogres').html(z[1]).trigger("create");}
+	if(z[0]==="ccfl"){		
+			if(z[1]==="GET_CHIP_ID"){
+				$('#Chip_ID').html(z[2].substring(0, 2)).trigger("create");
+				$('#Rev').html(z[2].substring(2)).trigger("create");		
+					var labelChipSeries;
+					var id="0x"+z[2].substring(0, 2);
+						console.log(id.parseInt);
+					switch (id)
+					{
+						case "0x41":labelChipSeries = "CC2541";break;
+						case "0x8D":labelChipSeries = "CC2540";break;
+						case "0x95":labelChipSeries = "CC2533";break;
+						case "0xB5":labelChipSeries = "CC2531";	break;
+						case "0xA5":labelChipSeries = "CC2530";break;
+						case "0x91":labelChipSeries = "CC2511";break;
+						case "0x81":labelChipSeries = "CC2510";break;
+						case "0x89":labelChipSeries = "CC2431";break;
+						case "0x85":labelChipSeries = "CC2430";break;
+						case "0x01":labelChipSeries = "CC1110";break;
+						default:
+							var chipDefined = false;
+							labelChipSeries = "UNK";		
+					}		
+				$('#Chip').html(labelChipSeries).trigger("create");
+			}
+}
+		
+		
+if(z[0]==="rsploadfwlist"){
+		//	console.log(z[1]); 
+			var arv=JSON.parse(z[1]);
+			     //  var li = '<li data-role="list-divider" data-mini="true" data-theme="a">Firmware List</li>';     
+			var li ="";	 
+			li +="<div  data-mini='true' data-theme='a'><a href=\"#\" data-role=\"button\" id=\"updatefw\" onclick='f_updatefw();'>Write  "+arv[0].ModelId;
+			if (z[2]!=arv[0].ver){li +=arv[0].ver+"*NEW*";}else{li +=arv[0].ver;}
+			
+			li+="</a></div>";	 
+	
+		for(var i =1;i < arv.length;i++){
+			  var adress=arv[i].link;
+					li +="<div data-role='collapsible' data-mini='true' data-theme='a'><h4> "+arv[i].ModelId+"</h4></>";				
+					li +="<table border='0' width='100%'>";						
+					li +="<div> <tr><td>"+arv[i].Manufacturer+ "</td><td>"+arv[i].board+ "</td><td>.</td><td>.</td></tr></div>";
+					li +="<div> <tr><td colspan='3'>"+arv[i].Description+ "</td><td>.</td><td><a data-mini='true' href=\"#\" data-role=\"button\" id=\"updatefw\" onclick='f_flccfw(\""+adress+"\",\"/ccfware.bin\");'>Write</a></td></tr></div>";
+
+			li +="</table></div>";	
+		}
+
+			
+		$('#fwlist').html(li).trigger("create");
+}				
+ 
+if(z[0]==="adddev"){
+			var       elEP= document.getElementById(z[1]);	
+     if(elEP===null){ var li="<div data-role='collapsible' data-theme='a'><h4> "+"IEEE: " +z[1] +" : " + "</h4>"+"<div data-theme='c' id='"+z[1]+"' ></div>";}			
+			$('#joinstatus').html("Read:<br>"+z[1]).trigger("create");
+			$('#devList').append(li).trigger("create");
+		}	
+
+if(z[0]==="rep"){
+/*	AttribId: "0000"
+	ClusterId: "0001"
+	Data: "0x66E8"
+	Dtype: "00"
+	EndPoint: "01"
+	LQI: "A3"
+	ShortAddr: "1C30"*/
+	
+
+	var rep=JSON.parse(z[1]);console.log(rep);
+	//$("#rep_win")
+	//var oldt=document.getElementById('rep_win').innerText;
+	document.getElementById('rep_win').innerText +=  z[2] + ":  \n" + z[1] + "\n";
+	
+	
+	
+	$('#'+z[2]+"LQI").html(parseInt('0x'+rep.LQI)).trigger("create");
+	$('#'+z[2]+"ShortAddr").html(rep.ShortAddr).trigger("create");	
+	var elattrID = document.getElementById(z[2]+rep.EndPoint+rep.ClusterId+rep.AttribId);
+	var   attrID = rep.EndPoint+rep.ClusterId+rep.AttribId;
+//todo проверить в devices report если нет добавить секцию	
+	 var dev
+	for(var i =0;i < deviceList.length;i++){if (deviceList[i].Device==rep.ShortAddr){dev=i;break;}}
+	try{ 
+	 if( !deviceList[dev].hasOwnProperty('Report')){
+		console.log("insert new"); 
+		var oR=JSON.parse( '{"Report": {}}');
+		Object.assign(deviceList[dev],oR );
+	 }
+	 if( !deviceList[dev].Report.hasOwnProperty(attrID)){
+		var oAtr=JSON.parse( '{"'+attrID+'": { "label": "'+attrID+'", "val": "", "mat": "1", "role": ""}}');
+		Object.assign(deviceList[dev].Report,oAtr );
+		console.log(deviceList[dev]);
+	 }
+	 if( !deviceList[dev].Report[attrID].hasOwnProperty(attrID.role)){
+		var rAtr=JSON.parse( '{ "role": ""}');
+		Object.assign(deviceList[dev].Report[attrID],rAtr );
+		console.log(deviceList[dev]);
+	 }	 
+	 
+	 
+	 
+	}catch(err){}
+	deviceList[dev].Report[attrID].val=rep.Data;
+	deviceList[dev].Report[attrID].parsed=rep.parsed;	
+
+	
+	
+	
+
+	if(elattrID!=null){
+			//$('#'+z[2]+rep.EndPoint+rep.ClusterId+rep.AttribId).html(h2d(rep.Data)).trigger("create");
+			$('#'+z[2]+rep.EndPoint+rep.ClusterId+rep.AttribId).html(rep.parsed).trigger("create");	
+	}else{
+	var li='<table><tr><td>'+rep.EndPoint+rep.ClusterId+rep.AttribId+'</td><td width="100%"></td><td id='+z[2]+rep.EndPoint+rep.ClusterId+rep.AttribId+'></td></tr></table>';
+	
+	
+			$('#'+z[2]).append(li).trigger("create");
+			$('#'+z[2]+rep.EndPoint+rep.ClusterId+rep.AttribId).html(h2d(rep.Data)).trigger("create");	
+			//$('#'+z[2]+rep.EndPoint+rep.ClusterId+rep.AttribId).html(rep.parsed).trigger("create");	
+	}
+
+
+		var drep=deviceList[dev].Report;
+		try{
+		li="";
+			for (let [key, value] of Object.entries(drep)) {	
+				if(attrID==key){
+				li+="<h3 class='name'>"+value.label+"</h3>";
+				li+="<p class='d_icon'>"+dev+"</p>";
+				li+="<p class='d_lgi'>"+(deviceList[dev].IEEE).substr(12)+"</p>";
+				li+="<p class='d_value'>"+value.parsed+"</p>";
+			  }
+			}
+			$('#d'+deviceList[dev].IEEE+attrID).html(li).trigger("create");
+		}catch{}
+
+
+}			
+				
+
+
+if(z[0].indexOf('/Devices/')==0){eddev(z[0].split("/")[2],z[1]);}
+
+
+
+
+
+		
+}//on.msg
+  
+drawLocation = function(json) { 
+try{
+		var	location= JSON.parse(json);
+		console.log(location);
+}catch{}	
+	}
+	
+saveReportTempl= function(IEEE){
+		var dev;var li="";
+	try{	
+		for(var i =0;i < deviceList.length;i++){if (deviceList[i].IEEE==IEEE){dev=i;break}}
+			
+			for (let [key, value] of Object.entries(deviceList[dev].Report)) {
+			console.log(deviceList[i].Report[key]);
+			console.log(deviceList[i].Report[key].label,$("#"+IEEE+key+"label").val());		
+			deviceList[i].Report[key].label=$("#"+IEEE+key+"label").val();
+			console.log(deviceList[i].Report[key].label,$("#"+IEEE+key+"label").val());			
+			deviceList[i].Report[key].mat  =$("#"+IEEE+key+"mat").val();
+			deviceList[i].Report[key].role =$("#"+IEEE+key+"role").val();
+			}
+			
+			console.log(JSON.stringify(deviceList[i]));
+			
+			var repF=deviceList[i]["Report"];
+			for (let [key, value] of Object.entries(repF)) {
+			li +='<table><tr><td>'+value.label+'</td><td width="100%"></td><td id='+IEEE+key+'></td></tr></table>';
+			console.log(value.label);
+			}
+			
+			SaveJson("/Devices/"+IEEE,JSON.stringify(deviceList[i]));
+			
+			
+		}catch(err){}		
+				$('#'+IEEE).html(li).trigger("create");		
+}
+function DevBle_parse(data){ 
+	var dev=JSON.parse(data)
+	var li="";
+	var val;
+try{val=(dev.serviceData[0].data.data).toString('hex')}catch{val=0}
+
+
+li +="<td>" + dev.id + "</td><td>" + dev.localName + "</td><td>" + z[2] + "</td>"
+	$('#'+dev.id).html(li).trigger("create");
+///	$('#BLE_list').html().trigger("create");
+}
+function ble_parse(data){ 		
+	var ardev=JSON.parse(data)
+	var li="";
+	console.log(dev);
+					//li +="<div data-role='collapsible' data-mini='true' data-theme='c'><h4> "+ "BLE" +"</h4>";					
+					li +="<table border='0' width='100%' data-mini='true'>";	
+						var val;
+
+						
+						for(var dev in ardev){
+						try{val=(ardev[dev].serviceData[0].data.data).toString('hex')}catch{val=0}						
+						li +="<tr id=\"" + ardev[dev].id + "\"><td width='15%'>" + ardev[dev].id + "</td><td>" + ardev[dev].localName + "</td><td>" + val + "</td></tr>"					
+						}					
+					
+					li +="</table>";	
+					//li +="</div>";	
+	$('#BLE_list').html(li).trigger("create");
+	
+	};
+
+function openBle(){
+ var li = '';
+ 
+ li +='<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">';
+ li +='<legend>Scan&select devices:</legend>';
+ li +='<input type="checkbox" name="checkbox-h-6a" id="checkbox-h-6a" onclick="WSsend(\'BLEscan|\'+this.checked)">';//WSsend('LoadJson|/groups.json');
+ li +='<label for="checkbox-h-6a">Scan</label>';
+ li +='<input type="checkbox" name="checkbox-h-6b" id="checkbox-h-6b">';
+ li +='<label for="checkbox-h-6b">all</label>';
+ li +='<input type="checkbox" name="checkbox-h-6c" id="checkbox-h-6c">';
+ li +='<label for="checkbox-h-6c">selected</label>';
+ li +='</fieldset>';
+ li +="<div id='BLE_list'></div>";
+ 
+ 
+
+
+$('#winpopup').html(li).trigger("create");
+			show_wpp();//{$("#winpopup" ).popup( "open" );  } 
+}
+eddev= function(IEEE,json) {
+	var	jsDev;
+		for(var i =0;i < deviceList.length;i++){if (deviceList[i].IEEE==IEEE){dev=i;break}}
+	try {	   
+	   if (json=="NULL"){
+	     jsDev=(deviceList.filter(function(el) { return el.IEEE == IEEE; }))[0]; 
+	   }else{
+		 jsDev= JSON.parse(json);
+	for (let [attrID, avalue] of Object.entries(jsDev.Report)) { 	   
+
+	   if( jsDev.Report[attrID].hasOwnProperty('mat')){
+		}else{
+		var rAtr=JSON.parse( '{ "mat": "1"}');
+		Object.assign(jsDev.Report[attrID],rAtr );
+		Object.assign(deviceList[dev].Report[attrID],rAtr );		
+		}	   
+	   if( jsDev.Report[attrID].hasOwnProperty('role')){
+		}else{
+		var rAtr=JSON.parse( '{ "role": "sensor"}');
+		Object.assign(jsDev.Report[attrID],rAtr );
+		Object.assign(deviceList[dev].Report[attrID],rAtr );		
+		}
+
+	}
+
+/*
+for (let [attrID, avalue] of Object.entries(jsDev)) {
+	   if( jsDev[attrID].hasOwnProperty('ClusterToBind')){
+		}else{
+		var rAtr=JSON.parse( '{ "ClusterToBind": []}');
+		//Object.assign(jsDev.Report[attrID],rAtr );
+		Object.assign(deviceList[dev][attrID],rAtr );		
+		}
+
+}
+*/
+
+
+	
+		}	 
+	 
+		
+		
+
+	
+			
+				
+				 var li = ''; 
+			
+//	0100010021:{"label":"Battery" , "val":"01d" , "mat":"1"}
+	
+					var Report=jsDev.Report;
+					console.log(JSON.stringify(jsDev));
+		
+					//li +="<input type='button' value='save' data-mini='true' onclick='saveReportTempl(\""+IEEE+"\");'>";
+					li +="<table><tr><td><a onclick='$(\"#winpopup\").html(\"\").trigger(\"create\");$(\"#winpopup\" ).popup(\"close\" )'>✖</a></td><td width='100%'></td><td><a onclick='saveReportTempl(\""+IEEE+"\");return false;'>Save</a></td></tr></table>";
+					
+					
+					li +="<div data-role='collapsible' data-mini='true' data-theme='c' id=' "+ 'Report:'+IEEE +"'><h4> "+ 'Report:'+IEEE +"</h4>";
+					li +="<div	data-role = 'none' id='"+ "obj_"+IEEE +"' onclick='selobj(\""+IEEE +"\")'>➕</div>";
+					
+					
+					
+					
+					for(var obj in Report){
+					li +="<div data-role='collapsible' data-mini='true' data-theme='c'><h4> "+ obj +"</h4>";					
+					li +="<table border='0' width='100%' data-mini='true'>";					
+					
+						if(Report.hasOwnProperty(obj)){
+						console.log(obj + ':' + Report[obj]);		
+							for(var prop in Report[obj]){
+								if(Report[obj].hasOwnProperty(prop)){
+								  console.log(prop + ':' + Report[obj][prop]);
+								if(prop=="val"){  
+								li +="<tr><td>"+prop + '</td><td>'+'<input data-clear-btn="true" data-role="none"  type="text" data-mini="true" id="'+IEEE+obj+prop+'" value="'+ Report[obj][prop]+'"></td><tr>'
+								}else if(prop=="role"){
+								li +="<tr><td>"+prop + '</td><td>'+sel_role(IEEE+obj+prop ,deviceList[dev].Report[obj].role)+"</td><tr>";
+								}else if(prop=="mat"){
+								li +="<tr><td>"+prop + '</td><td>'+'<input data-clear-btn="true" data-role="none"  type="text" data-mini="true" id="'+IEEE+obj+prop+'"';
+								li += 'value='+ Report[obj][prop]+'>';
+								li +='</td><tr>';
+								}else if(prop=="label"){
+									var title='';							
+									if(Report[obj][prop]==obj){
+										title=HA_CLUSTER_ID.name[obj.substring(2, 6)];									
+									}else{
+										title=Report[obj][prop];
+									}
+								li +="<tr><td>"+prop + '</td><td >'+'<input  title="'+title+'" type="text" data-role="none" data-mini="true" id="'+IEEE+obj+prop +'" value="'+ title +'"></td><tr>';//Report[obj][prop]
+								}
+								
+								
+								}
+							}
+					}
+					li +="</table></div>";						
+					}
+				li +="</div>";		
+		
+
+			//	Commands
+				li +="<div data-role='collapsible' data-mini='true' data-theme='c'><h4>Commands</h4>";
+				   if( jsDev.hasOwnProperty('Commands')){					
+					var Commands=jsDev.Commands;					
+					//for(var obj in Commands){
+					//li +="<div data-role='collapsible' data-mini='true' data-theme='c'><h4> "+ obj +"</h4>";					
+					//li +="<table border='0' width='100%' data-mini='true'>";					
+					
+						if(Commands.hasOwnProperty(obj)){
+						console.log(obj + ':' + Commands[obj]);	
+						let val=JSON.stringify(jsDev.Commands);
+							//for(var prop in Commands[obj]){
+							//	if(Commands[obj].hasOwnProperty(prop)){
+								 // console.log(prop + ':' + Commands[obj][prop]);
+								
+								//li +="<tr><td>"+prop + '</td><td>'+'<input data-clear-btn="true" data-role="none"  type="text" data-mini="true" id="'+IEEE+obj+prop+'" value="'+ Commands[obj][prop]+'"></td><tr>'
+								li +='<textarea	 id="'+IEEE+claster+atribut+'Commands'+'">'+val+'</textarea>'								
+								
+								
+							//	}
+							//}
+					//}
+					//li +="</table>";
+					li +="</div>";					
+					}
+				}		
+				li +="</div>";	
+
+
+			//	ClusterToBind
+				li +="<div data-role='collapsible' data-mini='true' data-theme='c'><h4>ClusterToBind</h4>";
+								   
+				   if( jsDev.hasOwnProperty('ClusterToBind')){
+					 li +='<input value="'+jsDev.ClusterToBind+'" data-role="none"  type="text" data-mini="true" id="'+IEEE+obj+'ClusterToBind'+'">';					
+					}					
+					
+
+				
+				li +="</div>";	
+			//ConfigureReporting
+				li +="<div data-role='collapsible' data-mini='true' data-theme='c'><h4>ConfigureReporting</h4>";
+				   if( jsDev.hasOwnProperty('ConfigureReporting')){
+				var Reporting=jsDev.ConfigureReporting
+						for(var claster in Reporting){
+				li +="<div data-role='collapsible' data-mini='true' data-theme='c'><h4>"+claster+"</h4>";						
+						for(var atribut in Reporting[claster]){
+						let val=JSON.stringify(Reporting[claster]);
+				//li +='<input value=\''+val+'\'  type="text" ';	
+				li +='<textarea	 id="'+IEEE+claster+atribut+'ConfigureReporting'+'">'+val+'</textarea>'
+						}
+				li +="</div>";						
+						}				
+					}
+
+				li +="</div>";
+			//ReadAttributes
+				li +="<div data-role='collapsible' data-mini='true' data-theme='c'><h4>ReadAttributes</h4>";
+				   if( jsDev.hasOwnProperty('ConfigureReporting')){
+				   	let val=JSON.stringify(jsDev.ReadAttributes);
+				//li +='<input value=\''+val+'\'   type="text" data-mini="true" id="'+IEEE+obj+'ReadAttributes'+'">';					
+				li +='<textarea	 id="'+IEEE+claster+"ReadAttributes"+'ConfigureReporting'+'">'+val+'</textarea>'					
+					}
+				li +="</div>";
+
+
+
+
+			
+			$('#winpopup').html(li).trigger("create");
+			show_wpp();//{$("#winpopup" ).popup( "open" );  } 
+		} catch (exception) {console.log(exception)};	
+}
+selobj= function(IEEE) {
+var li="test";
+jsDev=(deviceList.filter(function(el) { return el.IEEE == IEEE; }))[0].EP;
+
+
+
+
+
+
+
+
+
+$('#obj_'+IEEE).html(li).trigger("create");
+}	
+drawjsconfig = function(json) { 
+		//	console.log(json);
+	try {	
+			
+			var	json= JSON.parse(json);
+				jsconfig=json;
+				 var li = ''; 
+			for(var obj in json){
+					li +="<div data-role='collapsible' data-mini='true' data-theme='c'><h4> "+ obj +"</h4>";
+					li +="<table border='0' width='100%' data-mini='true'>";	
+					if(json.hasOwnProperty(obj)){
+							for(var prop in json[obj]){
+							li+="<div>";	
+								if(json[obj].hasOwnProperty(prop)){
+								var op=prop;var val=json[obj][prop];
+								  li +="<tr><td>"+op + '<input type="text" data-mini="true" id="'+op+'" value="'+ val+'"><td><tr>'
+								}
+							li+="</div>";	
+							}
+						}
+					li +="</table></div>";	
+				}
+
+			
+			
+			$('#jsconfig').html(li).trigger("create");
+			
+		} catch (exception) {};	
+/*Promise.all(
+	["../average.js", "toolbox.xml"].map(async file => {
+		return fetch(file).then(
+			(res) => {
+				return res.text();
+			}
+		);
+	})
+).then((xmls) => {
+	xmls.forEach((xml) => {
+		var parser = new DOMParser();
+		var doc = parser.parseFromString(xml, "application/xml");
+		document.body.appendChild(doc.documentElement);
+	});
+}).then(() => {})
+
+*/
+
+
+
+
+
+
+	};
+	draw_reportconfig= function(adr) {	
+		var cfg={"u8DstAddrMode": "2",
+				"u16ShortAddr": adr,
+				"u8SrcEndPoint": "1",
+				"u8DstEndPoint": 0,
+				"u16ClusterID": 0,
+				"u8ReportDirection": 0,
+				"u8AttribDirection": 0,
+				"u8AttribType": 0,
+				"u16AttribId": 0,
+				"u16MinInterval": 0,
+				"u16MaxInterval": 0,
+				"u16TimeOut": 0,
+				"u8Change": 0}
+	}
+	add_group= function() {
+	//	console.log($('#group_adress').val(),$('#group_name').val());
+		var adr=$('#group_adress').val();
+		var name=$('#group_name').val();
+		groups.push({"name": name,"adress": adr,"devices": []});
+		SaveJson("/groups.json",JSON.stringify(groups));
+		WSsend('LoadJson|/groups.json');
+		//draw_groups();
+	
+	}
+	add_2group= function(id) {
+	var groupdev=[];// =deviceList.filter(function(el) { return el.adress != adress; });
+	var li="<table>";     
+	 for(var i =0;i < deviceList.length;i++){
+	  var z=deviceList[i];
+		 var ep=z.EP;
+		 console.log(ep);  
+		 var epn=Object.keys(ep);//epname
+			
+		
+			for(var x =0;x < epn.length ;x++){ // endpoints
+				var cl=Object.values(ep)[x];
+				var clar=Object.values(cl);
+				var pid=clar[0];
+				if (clar.length==3){var cli=clar[1];var clo=clar[2];}
+				if (clar.length==4){var cli=clar[2];var clo=clar[3];}
+			for(var g=0; g < cli.length; g++){
+				if (cli[g]=="0004"){
+					groupdev.push(z);	
+					li +="<tr>";
+					li +="<td>"+z.ModelId+"</td>";
+					li +="<td>"+z.Device+"</td>";
+					li +="<td><div onclick='send_add_group(\""+id+"\",\""+z.Device+"\",\""+epn[x]+"\");'>➕</div></td>";	
+					li +="<td><div onclick='send_del_group(\""+id+"\",\""+z.Device+"\",\""+epn[x]+"\");'>➖</div></td>";				
+					li +="</tr>";
+				}	
+			
+			}
+		
+
+		}
+	}
+		li +="</table>";	
+	console.log('#group_'+id);
+      $('#group_'+id).html(li).promise().done(function () {$(this).trigger("create");})	
+	
+	
+	
+	}
+	send_add_group= function(indexgroup,adress,EP){
+	$('#progress_v').html("send").trigger("create");
+			var group=groups.filter(function(el) { return el.adress == indexgroup; });
+			var name=group[0].name;			
+			var js={"u16ShortAddr": adress,			
+					"u8SrcEndPoint": "01",
+					"u8DstEndPoint": EP,
+					"u16GroupAddr":	group[0].adress,
+					"u8GroupNameLength": name.length.toString(),
+					"u8GroupNameMaxLength":"10",	
+					"sName": name}
+			WSsend('GroupAdd|'+JSON.stringify(js));	
+			show_response();
+	
+	}
+	send_del_group= function(indexgroup,adress,EP){	
+	$('#progress_v').html("send").trigger("create");
+			var group=groups.filter(function(el) { return el.adress == indexgroup; });
+			var js={"u16ShortAddr": adress,			
+					"u8SrcEndPoint": "01",
+					"u8DstEndPoint": EP,
+					"u16GroupAddr":	group[0].adress}	
+
+			WSsend('GroupDel|'+JSON.stringify(js));	
+			show_response();	
+	}
+	
+	del_group= function(adress){
+	console.log(adress);
+		groups=groups.filter(function(el) { return el.adress != adress; });    	
+		SaveJson("/groups.json",JSON.stringify(groups));
+		WSsend('LoadJson|/groups.json');	
+	}	
+	draw_groups = function() {
+		var li="";
+		for(var i =0;i < groups.length;i++){
+		li +="<div data-role='collapsible' data-mini='true' data-theme='a'><h4> "+groups[i].adress + ":" +groups[i].name +"</h4>";	 
+		li +='<table><tr>';
+		li +='<td><a onclick="javascript:add_2group(\''+ groups[i].adress +'\')">Sel_dev</a></td>';
+		li +='<td width="50%"></td>';		
+		li +='<td><a onclick="javascript:del_group(\''+ groups[i].adress +'\')">&#9249 group</a></td>';	
+		li +='</tr></table>';			
+		li +='<div id="group_'+ groups[i].adress +'"></div> ';		
+		li +="</div>"
+	//	console.log(groups[i]);		
+		}
+
+
+
+	
+      $('#list_groups').html(li).promise().done(function () {$(this).trigger("create");})
+	}
+	
+	
+	sendsaveConfig = function() { 	
+	
+				for(var obj in jsconfig){
+					if(jsconfig.hasOwnProperty(obj)){
+							for(var prop in jsconfig[obj]){
+								if(jsconfig[obj].hasOwnProperty(prop)){
+								var op=prop;var val=jsconfig[obj][prop];
+								var valh=$("#"+op).val();
+								  jsconfig[obj][prop]=valh;
+								}
+							}
+						}
+				}
+$('#RebootESP').prop('disabled', true);
+		console.log(JSON.stringify(jsconfig));
+		if (jsconfig!=undefined){SaveJson("/jsconfig.txt",JSON.stringify(jsconfig));}
+timeout_name5 = setTimeout(function () {
+$('#RebootESP').prop('disabled', false);
+}, 3000);
+		
+	};
+	
+
+	
+
+
+
+drawList = function() { 
+var li = '<div  data-mini="true" data-theme="c">Device List &nbsp &nbsp  &nbsp <a href="#" onclick="$(\'.hid\').show();" >show</a>&nbsp <a href="#" onclick="$(\'.hid\').hide();" >hide</a></div>';
+
+
+	 var devHtml;
+      for(var i =0;i < deviceList.length;i++){
+	  var z=deviceList[i];
+var tdSave='<td >💾</td>'	//  
+var tdEdit='<td onclick="javascript:WSsend(\'LoadJson|/Devices/'+z.IEEE+'\');">✎</td>'	  
+	  
+	  if(z.Device==="0000"){
+		li +="<div data-role='collapsible' data-mini='true' data-theme='a'><h4> "+z.IEEE+ ":" +z.Device + " : "+  z.ModelId +"</h4></>";	 
+		li +="<table border='0' width='100%'cellspacing='0' cellpadding='0'style='font-weight:bold'>";
+		li +="<tr><td width='60' rowspan='3' ><img src='img/"+  z.ModelId +".jpg' width='60px'></td>";
+		li +='<td width="30" >Adr: </td><td><div id='+z.IEEE+'ShortAddr>0000</div></td>';
+		li +='<td></td><td></td></tr><tr><td width="26"></td><td></td><td> </td><td> </td></tr>';
+		li +="</table>";		
+	
+		
+		
+		}else{
+		li +="<div data-role='collapsible' data-mini='true' data-theme='a'><h4> "+z.IEEE+ ":" +z.Device + " : "+  z.ModelId +"</h4></>";	 
+		li +="<table border='0' width='100%'cellspacing='0' cellpadding='0'style='font-weight:bold'>";
+		li +="<tr><td width='60' rowspan='3' ><img src='img/"+  z.ModelId +".jpg' width='60px'></td>";
+		li +='<td width="30" >Adr: </td><td><div id='+z.IEEE+'ShortAddr>...</div></td>';
+		li += tdEdit;
+		li +='<td width=25px" onclick="javascript:deldevl(\''+z.IEEE+'\')"> &#9249 </td> </tr>';		
+		li +="<tr><td width='26'><img src='ico/qualityofservice.png' width='25px'></td><td><div id="+z.IEEE+"LQI>...</div></td><td>                      </td><td>            </td></tr>";
+		li +="</table>";		
+		}
+		li +="<div id="+z.IEEE+">"; 
+		var ep=z.EP;
+		var Report=z.Report;console.log(Report);
+
+		
+//***************************************************		
+		//if ("Report" in fDev) {
+		if (Report!=undefined && z.Device!="0000"){//draw report
+		var repF=z["Report"];
+		for (let [key, value] of Object.entries(repF)) {
+		
+var devRole=value.role.split("&");
+	 
+		 switch (devRole[0])
+		  {
+
+			case "switch":
+				li +=on_off(z.Device,key.substring(0,2));
+			break;	
+			case "light":
+			//console.log(key.substring(2,6));
+			 switch (key.substring(2,6))
+			   {
+				case "0006":li +=on_off(z.Device,key.substring(0,2));break;
+				case "0008":
+ 	              li+='<label for="sLevel">Level:</label><input type="range" name="sLevel" id="sLevel" min="0" max="25" value="5" onchange=\'var data ="MoveToLevel|'+z.Device+'|1|'+key.substring(0,2)+'|1|svalue|0001";MoveToLevel(data,this.value*10);console.log(this.value*10);\'>';		
+				break;
+				case "0300"://Color Control			
+					li+='<label for="sColorT">ColorTemp:</label><input type="range" name="sColorTemp" id="sColorT" min="1" max="99" value="25"  onchange=\'var data ="MoveToColorTemp|'+z.Device+'|1|'+key.substring(0,2)+'|svalue|0001";MoveToColorTemp(data,this.value);console.log(this.value)\'>'
+					li+=rgb(z.Device,key.substring(0,2) );	
+				break;
+				}
+			break;				
+			case "livolo_swith1ch":
+				li +=livolo_on_off(z.Device,key.substring(0,2));
+			break;				
+			case "cover":
+				li+='<label for="sLevel">Level:</label><input type="range" name="sLevel" id="sLevel" min="0" max="100" value="0" onchange=\'var data ="MoveToLevel|'+z.Device+'|1|'+key.substring(0,2)+'|1|svalue|0001";MoveToLevel(data,this.value);console.log(this.value);\'>';
+			break;					
+				
+		 }		
+		li +='<table><tr><td>'+value.label+'</td><td width="100%"></td><td id='+z.IEEE+key+'></td></tr></table>';
+		console.log(value.label);
+		}		
+		
+
+		
+		}else{				   //Object.keys(arr)
+//********************************************************************************************		
+		 var ep=z.EP;
+		 console.log(ep);  
+		 var epn=Object.keys(ep);//epname
+		li +="<table border='0' width='100%'cellspacing='0' cellpadding='0'>";		
+		for(var x =0;x < epn.length ;x++){ // endpoints
+			var cl=Object.values(ep)[x];
+			var clar=Object.values(cl);
+			var pid=clar[0];
+			if (clar.length==3){var cli=clar[1];var clo=clar[2];}
+			if (clar.length==4){var cli=clar[2];var clo=clar[3];}
+						
+			
+			
+			for(var clx =0;clx < cli.length ;clx++){ // Clusters
+				li +="<tbody style='text-align:left' id="+z.IEEE+"_"+epn[x]+ "_" +cli[clx]+ ">"; 
+				li +="<tr class='hid'><th width='10'>I</th><th width='20'>"+epn[x]+"</th><th  width='40'>"+HA_CLUSTER_ID.name[cli[clx]]+"</th><th width='40'></th><th width='100%'></th><th><a href=\"javascript:reqAtribute('"+z.Device+"|"+epn[x]+"|"+cli[clx]+"|0000');\" ><img src='ico/service.png' width='20px'></a></th></tr>";
+		if(z.Device!="0000"){	
+			switch (cli[clx]) {
+				case "0003"://Identify
+				li+=Identify(z.IEEE,z.Device,epn[x]);
+				break;			
+				case "0006": 
+				li+=on_off(z.Device,epn[x]);
+				break;
+				case "0008"://Level Control
+               li+='<label for="sLevel">Level:</label><input type="range" name="sLevel" id="sLevel" min="0" max="25" value="5" onchange=\'var data ="MoveToLevel|'+z.Device+'|1|'+epn[x]+'|1|svalue|0001";MoveToLevel(data,this.value*10);console.log(this.value*10);\'>';		
+				break;
+				case "0300"://Color Control			
+				li+='<label for="sColorT">ColorTemp:</label><input type="range" name="sColorTemp" id="sColorT" min="1" max="99" value="25"  onchange=\'var data ="MoveToColorTemp|'+z.Device+'|1|'+epn[x]+'|svalue|0001";MoveToColorTemp(data,this.value);console.log(this.value)\'>'
+				li+=rgb(z.Device,epn[x]);	
+				break;			
+			}
+			switch (clo[clx]) {			
+				case "0006": 
+				li+=on_off(z.Device,epn[x]);
+	
+				break;			
+			}
+			
+			
+			
+			
+			
+		}else{//морда гейта
+			if(z.Device==="0000" && cli[clx]=="0000"){
+				li +="</tbody>";
+				li +="<div data-role='collapsible' data-mini='true' data-theme='a'><h4>Volume&Radio</h4></>";
+				li+=volume(Mi_lamp.sound.volume);
+				li+=sel_radio();			
+				li+="</div>";	
+
+
+
+				li+= on_off_gate("0000" , "01");		
+				li+='<label for="sLevel">Level:</label><input type="range" name="sLevel" id="sLevel" min="0" max="100" value="50" onchange=\'var data ="MoveToLevel|'+z.Device+'|1|'+1+'|1|svalue|0009";MoveToLevel(data,this.value);console.log(this.value);\'>';
+			li+=rgb(z.Device,1);
+			}
+
+			
+			
+
+		}
+				li +="</tbody>"; //clin close
+			}
+			
+
+ 			
+			
+			for(var clx =0;clx < clo.length ;clx++){ // Clusters
+				li +="<tbody style='text-align:left' id="+z.IEEE+"_"+epn[x]+ "_" +clo[clx]+ ">"; 
+				li +="<tr class='hid'><th  width='10'>O</th><th width='20'>"+epn[x]+"</th><th  width='40'> "+HA_CLUSTER_ID.name[clo[clx]]+"</th><th width='40'></th><th width='100%'></th><th><a href=\"javascript:reqAtribute('"+z.Device+"|"+epn[x]+"|"+clo[clx]+"|0000');\" ><img src='ico/service.png' width='20px'></a></th></tr>";
+				li +="</tbody>"; //clon close
+			}	
+
+			li +="</tbody>"; //epn close
+		 }
+		  li +="</table>"; 
+
+		}//else report endef
+
+//***************************************************
+		li +="</div>"; 
+		li +="</div>"; 
+	 }
+
+		for(var g =0;g < groups.length;g++){
+		//li+="<option value='"+groups[i].adress+"'>Group:"+groups[i].adress+":"+groups[i].name +"</option>";		
+		li +="<div data-role='collapsible' data-mini='true' data-theme='a'><h4> Group: "+ groups[g].name + ":" + groups[g].adress + "</h4></>";	 
+		li +="<table border='0' width='100%'cellspacing='0' cellpadding='0'style='font-weight:bold'>";
+		li +="<tr><td width='60' rowspan='3' ><img src='img/group.jpg' width='60px'></td>";
+		li +='<td width="30" >Adr: </td><td><div id='+groups[g].adress+'ShortAddr>'+groups[g].adress+'</div></td>';
+		li +='<td></td><td></td></tr><tr><td width="26"></td><td></td><td> </td><td> </td></tr>';
+		li +="</table>";
+		li +=on_off_group(groups[g].adress,1);		
+		li +="</div>";	
+		}		
+		
+		 
+	 
+	 
+      $('#devList').html(li).promise().done(function () {
+
+        $(this).trigger("create");
+		})
+
+}	
+//****************************Vis******************************************   
+
+//Виджеты
+
+function volume(x){
+var html='<label for="sVol">Volume:</label><input type="range" name="sVol" id="sVol" min="0" max="32768" value="'+x+'"  onchange=\'WSsend("setVolume|"+(this.value).toString() );console.log(this.value)\'>'
+return html;
+}
+function sel_radio(){//<table><tr><td></td><td>play</td><td>Stop</td></tr></table>
+var rar=Mi_lamp.radio;
+var html="<div><input data-clear-btn='true' type='text' id='radioch' value='' list='radioname'><datalist id='radioname'>";
+
+for (var i=0;i<rar.length;i++){
+html+="<option value='"+rar[i]+"'>"
+
+}
+//html+="<option value='http://chanson.hostingradio.ru:8041/chanson128.mp3'><option value='http://dorognoe.hostingradio.ru:8000/radio?type=.mp3'><option value='http://stream3.radiostyle.ru:8001/biker-fm'><option value='http://air.radiorecord.ru:8102/sd90_320'>
+html+="</datalist></div>";
+
+html+="<div><form><a href='#' data-role='button' onclick='WSsend(\"playSound|\"+$(\"#radioch\").val());'>Play</a><a href='#' data-role='button' onclick='WSsend(\"killSound|0\");'>Stop</a> </form></div>";
+html+="<div> </div>";;
+
+
+return html;
+}
+
+
+function sel_scanChannels(){
+var html="<div><input type='text'  list='scanChannels'><datalist id='scanChannels'>";
+	for(var i=0; i < location.scanChannels.length;i++){html+="<option value='"+location.scanChannels[i]+"'>"}
+	html+="</datalist></div>";
+return html;
+
+}
+
+function sel_role(id,val){
+
+var html="<div><input data-clear-btn='true' type='text' id='"+id+"' value='"+val+"' list='rolename'><datalist id='rolename'>";
+for (let [key, val] of Object.entries(HAdev.config.device_type)) {
+//console.log(key, val);
+	html+="<option value="+key+">"
+}
+html+="</datalist></div>";
+return html;
+}
+
+
+
+
+
+function Identify(IEEE,Device,epn){
+var html="";//'<label>Find</label><img src="ico/colorwheel.png" width="25px"  onclick="WSsend(\'Identify|'+Device+'|1|'+epn+'|0009\');">';
+return html;
+}
+function on_off(Device,epn){
+var html="";
+	html+="<img src='ico/switch-off.png' width='40px'  onclick='sendbc(\"01"+ Device +epn+"00\");reqAtribute(\""+Device+"|"+epn+"|0006|0000\");'>"	;	
+	html+="<img src='ico/switch.png' width='45px'  onclick='sendbc(\"01"+ Device +epn+"02\");reqAtribute(\""+Device+"|"+epn+"|0006|0000\");'>"	;
+	html+="<img src='ico/switch.png' width='40px'  onclick='sendbc(\"01"+ Device +epn+"01\");reqAtribute(\""+Device+"|"+epn+"|0006|0000\");'><br>"	;	
+return html;
+}
+function on_off_gate(Device,epn){
+var html="";
+	html+="<img src='ico/switch-off.png' width='40px'  onclick='sendbc(\"01"+ Device +epn+"00\");reqAtribute(\""+Device+"|"+epn+"|0006|0000\");'>"	;	
+	//html+="<img src='ico/switch.png' width='45px'  onclick='sendbc(\"01"+ Device +epn+"02\");reqAtribute(\""+Device+"|"+epn+"|0006|0000\");'>"	;
+	html+="<img src='ico/switch.png' width='40px'  onclick='sendbc(\"01"+ Device +epn+"01\");reqAtribute(\""+Device+"|"+epn+"|0006|0000\");'><br>"	;	
+return html;
+}
+function on_off_group(Device,epn){
+var html="";
+	html+="<img src='ico/switch-off.png' width='40px'  onclick='sendbc(\"01"+ Device +"010001\");'>"	;	
+	html+="<img src='ico/switch.png' width='45px'  onclick='sendbc(\"01"+ Device +"010201\");'>"	;
+	html+="<img src='ico/switch.png' width='40px'  onclick='sendbc(\"01"+ Device +"010101\");'><br>"	;	
+return html;
+}
+function livolo_on_off(Device,epn){
+var html="";
+//	html+="<div><table><tr>"
+html+="<img src=\"ico/switch-off.png\" width=\"50px\" onclick=\"var data =\'MoveToLevel|"+Device+'|1|'+epn+"|1|svalue|0001\';MoveToLevel(data,109);reqAtribute('"+Device+"|"+epn+"|0006|0000');\">";
+	//ml+="<td width='30%'><img src='ico/switch-off.png' width='40px'  onclick='sendbc(\"01"+ Device +epn+"06\");reqAtribute(\""+Device+"|"+epn+"|0006|0000\");'></td><td width='30%'>"
+//	html+="<img src='ico/switch.png' width='45px'  onclick='sendbc(\"01"+ Device +epn+"02\");reqAtribute(\""+Device+"|"+epn+"|0006|0000\");'>"	;
+//	html+="</td><td><img src='ico/switch.png' width='40px'  onclick='sendbc(\"01"+ Device +epn+"6C\");reqAtribute(\""+Device+"|"+epn+"|0006|0000\");'></td>"	//livolo 21758D19004B1200
+
+html+="<img src=\"ico/switch.png\" width=\"50px\" onclick=\"var data =\'MoveToLevel|"+Device+'|1|'+epn+"|1|svalue|0001\';MoveToLevel(data,108);reqAtribute('"+Device+"|"+epn+"|0006|0000');\">";
+
+
+
+//	html+="</tr></table></div>";
+
+return html;
+}
+
+
+function rgb(Device,epn){
+	var html='<script>var colorPicker'+Device+' = new iro.ColorPicker("#picker'+Device+'",{layout:[{component: iro.ui.Wheel,}],width: 240,color: "#ff00ff"});colorPicker'+Device+'.on("input:end", function(color) {if (color.index === 0) { setTimeout( function () {  MoveToColor("MoveToColor|'+Device+'|1|'+epn+'|Xvalue|Yvalue|0001",rgb_to_cie(color.rgb.r, color.rgb.g, color.rgb.b)) }, 300 );  ;console.log(color.value);console.log(rgb_to_cie(color.hue, color.saturation, color.rgb.b));}});<\/script><div id="picker'+Device+'"></div>';
+	
+return html;
+}	
+		
+//***************************************************************************************	
+function MoveToLevel(data,val){data=data.replace('svalue',Hex(val,2));WSsend(data);}
+function MoveToColorTemp(data,val){data=data.replace('svalue',Hex(val,2));WSsend(data);}
+function MoveToColor(data,val){data=data.replace('Xvalue',Hex(val[0],4));data=data.replace('Yvalue',Hex(val[1],4));WSsend(data);}
+function MoveToSat(data,val){data=data.replace('svalue',Hex(val,2));WSsend(data);}
+function MoveToHue(data,val){data=data.replace('svalue',Hex(val,2));WSsend(data);}	
+	
+ //binding-------------------------------------------------------------------------------  
+drawBind = function() { 	
+		var li = "<option>src Adr</option>";
+		
+		for(var i =1;i < self.deviceList.length;i++){
+			var z=self.deviceList[i];
+			li+="<option value='"+z.IEEE+"' >"+z.IEEE+":"+z.ModelId+"</option>";
+		}
+		
+	 $('#srcA').html(li).trigger("create");
+	 $('#srcEP').html("<option>src EP</option>");
+	 $('#clID').html("<option>Cluster</option>").trigger("create");
+	 $('#dstA').html("<option>dst Adr</option>").trigger("create");
+	 $('#dstEP').html("<option>dst EP</option>").trigger("create");	 
+	 };	 
+
+ drawBindEP = function(adr) { 	
+		var li ="<option>src EP</option>";
+		 for(var i =0;i < self.deviceList.length;i++){
+			if(self.deviceList[i]["IEEE"]==adr){var ep=self.deviceList[i]["EP"];
+			//WSsend("MGMT_BIND_REQ|"+self.deviceList[i]["Device"]);			
+			break;}
+		 }
+			 
+	var epn=Object.keys(ep);	
+		for(var x =0;x < epn.length ;x++){ // endpoints
+			//if (enCLO(adr,epn[x])){
+				li+="<option value='"+epn[x]+"' id='EP'>EP:"+epn[x]+"</option>";
+			//}
+		}
+
+	 $('#srcEP').html(li).trigger("create");
+	 $('#clID').html("<option>Cluster</option>").trigger("create");
+	 $('#dstA').html("<option>dst Adr</option>").trigger("create");
+	 $('#dstEP').html("<option>dst EP</option>").trigger("create");		 
+	};
+	
+ drawBindCL = function(ep) { 	
+		var li ="<option>Cluster</option>";
+		var adr=$("#srcA").val();
+		 for(var i =0;i < self.deviceList.length;i++){
+			if(self.deviceList[i]["IEEE"]==adr){
+
+			break;
+			}
+		 }
+		//var epa=self.deviceList[i]["EP"];	 
+		 var epn=Object.keys(self.deviceList[i]["EP"]);	
+		for(var x =0;x < epn.length ;x++){ // endpoints
+			if(ep==epn[x]){
+		 	var arc=Object.values(self.deviceList[i]["EP"])[x]["ClO"];
+				for(var z=0;z<arc.length;z++){
+				li+="<option value='"+arc[z]+"'>O Cluster:"+HA_CLUSTER_ID.name[arc[z]]+"</option>";
+				}
+			arc=Object.values(self.deviceList[i]["EP"])[x]["ClI"];
+				for(var z=0;z<arc.length;z++){
+				li+="<option value='"+arc[z]+"'>I Cluster:"+HA_CLUSTER_ID.name[arc[z]]+"</option>";
+				}
+			
+			
+			
+			
+			
+			}
+		}
+		
+	 $('#clID').html(li).trigger("create");
+	 $('#dstA').html("<option>dst Adr</option>").trigger("create");
+	 $('#dstEP').html("<option>dst EP</option>").trigger("create");	
+	};
+ drawBinddstA = function(cln) {
+ 		var li ="<option>dst Adr</option>";
+		for(var i =0;i < self.deviceList.length;i++){
+		var flag=true;
+		var ep=self.deviceList[i]["EP"];
+		 var epn=Object.keys(ep);	
+				for(var x =0;x < epn.length ;x++){ // endpoints
+					var cl=Object.values(ep)[x];
+					var clar=Object.values(cl);
+					var pid=clar[0];
+					if (clar.length==3){var cli=clar[1];var clo=clar[2];}
+					if (clar.length==4){var cli=clar[2];var clo=clar[3];}
+					for (z=0;z < cli.length;z++){
+						if (flag && cln==cli[z]){
+		li+="<option value='"+self.deviceList[i]["IEEE"]+"'>"+self.deviceList[i]["IEEE"]+":"+self.deviceList[i]["ModelId"]+"</option>";
+						flag=false;
+						break;
+						}					
+					
+					}					
+				}
+		 
+		 }
+		
+		for(var i =0;i < groups.length;i++){
+		li+="<option value='"+groups[i].adress+"'>Group:"+groups[i].adress+":"+groups[i].name +"</option>";		
+		}
+
+		
+	 $('#dstA').html(li).trigger("create");		
+ }
+//отбираем еп с оут кластерами
+ drawBinddstEP = function() { 	
+		var li ="<option>src group</option>";
+		
+		var adr=$("#dstA").val();
+		var Cli=$("#clID").val();		
+		for(var i =0;i < self.deviceList.length;i++){
+			if(self.deviceList[i]["IEEE"]==adr){var ep=self.deviceList[i]["EP"];break;}
+						//li+="<option value='group'>EP:group</option>";		 
+		 }
+	try{			 
+		 var epn=Object.keys(ep);	
+		for(var x =0;x < epn.length ;x++){ // endpoints
+		var ep=self.deviceList[i]["EP"];
+		 var epn=Object.keys(ep);	
+				for(var x =0;x < epn.length ;x++){ // endpoints
+					var cl=Object.values(ep)[x];
+					var clar=Object.values(cl);
+					var pid=clar[0];
+					if (clar.length==3){var cli=clar[1];var clo=clar[2];}
+					if (clar.length==4){var cli=clar[2];var clo=clar[3];}
+					for (z=0;z < cli.length;z++){
+						if (Cli==cli[z]){
+						li+="<option value='"+epn[x]+"'>EP:"+epn[x]+"</option>";
+						break;
+						}					
+					
+					}					
+				}
+		}
+	}catch{
+	li ="<option></option>";
+	}
+	
+	 $('#dstEP').html(li).trigger("create");	 
+	};
+	
+ enCLI = function(Adr,Ep,Clo) {
+ 		 for(var i =0;i < self.deviceList.length;i++){
+			if(self.deviceList[i]["IEEE"]==Adr){var ep=self.deviceList[i]["EP"];break;}
+		 }
+		 var epn=Object.keys(ep);	
+		for(var x =0;x < epn.length ;x++){ // endpoints
+			var cl=Object.values(ep)[x];
+			var clar=Object.values(cl);
+			var pid=clar[0];
+			if (clar.length==3){var cli=clar[1];var clo=clar[2];}
+			if (clar.length==4){var cli=clar[2];var clo=clar[3];}
+						
+			if (Cli==null && cli.length > 0){return true;}//else{return false;}
+			//	for(var clx =0;clx < clo.length ;clx++){console.log(clo[clx]);} // Clusters
+		}
+	return false;
+} 
+ enCLO = function(Adr,Ep,Clo) {
+ 		 for(var i =0;i < self.deviceList.length;i++){
+			if(self.deviceList[i]["IEEE"]==Adr){var ep=self.deviceList[i]["EP"];break;}
+		 }
+		 var epn=Object.keys(ep);	
+		for(var x =0;x < epn.length ;x++){ // endpoints
+			var cl=Object.values(ep)[x];
+			var clar=Object.values(cl);
+			var pid=clar[0];
+			if (clar.length==3){var cli=clar[1];var clo=clar[2];}
+			if (clar.length==4){var cli=clar[2];var clo=clar[3];}
+						
+			if (Clo==null && clo.length > 0){return true;}//else{return false;}
+			//	for(var clx =0;clx < clo.length ;clx++){console.log(clo[clx]);} // Clusters
+		}
+	return false;
+} 	
+ deldevl = function(Adr) {
+ var shAdr="";
+ 		 for(var i =0;i < self.deviceList.length;i++){if(deviceList[i].IEEE==Adr){shAdr=deviceList[i]["Device"];break;}}
+			
+			
+			
+
+
+var li='<table align="center"><tr><td><a href="#" data-role="button" data-rel="close" onclick="WSsend(\'removeDevice|'+shAdr+'|'+Adr+'\');$(\'#progrespopup\').popup(\'close\');">Del</a></td><td><a href="#" data-role="button" data-rel="close" onclick="WSsend(\'removeDevice|'+shAdr+'|'+Adr+'|force\');$(\'#progrespopup\').popup(\'close\');">Force Del</a></td></tr></table>';
+
+
+			
+
+$('#progress_v').html(li).trigger("create"); 
+ show_response();
+ 
+/* 		 for(var i =0;i < self.deviceList.length;i++){
+			if(deviceList[i]["IEEE"]==Adr){
+			console.log(deviceList);
+			WSsend('removeDevice|'+deviceList[i]["Device"]+'|'+Adr);
+			delete deviceList[i];
+			deviceList.splice(i,1);
+			SaveJson("/devicesjs.txt",JSON.stringify(deviceList));
+			WSsend('reloadtDeviceList');
+			break;
+			}
+		 } 
+ */
+ }
+	reqAtribute = function(afrdata) {	
+			console.log(afrdata);
+		WSsend('reqAtribute|'+afrdata);			
+	
+	}
+function getKeyByValue(object, value, fallback) {
+    const key = Object.keys(object).find((k) => object[k] === value);
+    return key != null ? Number(key) : (fallback || 0);
+}	
+
+function selId(){
+	
+	var li='<input  type="text" id="tmpval"><table id="selector" border="1">';
+	for(var i=0;i<deviceList.length; i++){
+	li+='<tr><td onclick="$(\'#tmpval\').val(this.innerText);$(\'#tmpval\').select();document.execCommand(\'copy\');return new Promise(function(ret){ret(this.innerText);});$(\'selDevice\').hide();"><a href="#">' + deviceList[i].IEEE + '</a></td><td>' + deviceList[i].ModelId + '</td></tr>';//	console.log(deviceList[i]);
+	
+	}
+	li+="</table>";
+	$('#scriptdevlist').html(li).promise().done(function () {$(this).trigger("create");})
+	$("#selDevice").popup( "open" ).promise().done(function () {console.log("blblbla");});	
+
+}
+function selectIdDialog(currentValue, callback) {
+    var li = '<input  type="text" id="tmpval" value="' + currentValue + '"><table id="selector" border="1">';
+
+    for(var i = 0; i < deviceList.length; i++) {
+        li += '<tr><td onclick="$(\'#tmpval\').val(this.innerText);$(\'#tmpval\').select();document.execCommand(\'copy\');$(\'selDevice\').hide();"><a href="#">' + deviceList[i].IEEE + '</a></td><td>' + deviceList[i].ModelId + '</td></tr>';// console.log(deviceList[i]);
+    }
+    
+    li+="</table>";
+    
+    $('#scriptdevlist').html(li).promise().done(function () {$(this).trigger("create");});
+    $("#selDevice").popup("open").promise().done(function () {console.log("blblbla");});
+    
+    $("#jqDone").on('click', function () {callback && callback($('#tmpval').val())});
+}
+//function show_response(){$("#progrespopup" ).html('<div id="progress_v"></div>').trigger("create");$("#progrespopup" ).popup( "open" );  }
+function show_response(){$("#progrespopup" ).popup( "open" );  }
+function show_wpp(){$("#winpopup" ).popup( "open" );  } 			              
+
+function  showmatrix(){
+var li="<div class='dev_container'>";
+
+
+for(var i =0;i < deviceList.length;i++){
+	if( deviceList[i].hasOwnProperty('Report')){	
+	console.log(deviceList[i].Report)
+	var drep=deviceList[i].Report;
+	
+
+		
+		
+		try{
+			for (let [key, value] of Object.entries(drep)) {	
+				var label= (value.label.length > 9) ? value.label.length  : value.label ;	
+				li+="<div id='d"+deviceList[i].IEEE+key+"' class='element-item transition metal' data-category='transition'>";
+				li+="<h3 class='name'>"+label+"</h3>";
+				li+="<p class='d_icon'>"+i+"</p>";
+				li+="<p class='d_lgi'>"+(deviceList[i].IEEE).substr(12)+"</p>";
+				li+="<p class='d_value'>"+value.parsed+"</p>";
+				li+="</div>";
+			}
+		}catch{}
+	}else{
+	
+	
+	
+	}
+}	
+	
+	///value.val.substring(0,((value.val.length() < 6)?value.val.length():6))
+	
+li+="</div>";
+
+/*	li+="<h2>Filter</h2>";
+	li+="<div  data-role = 'none'  id='filters' class='button-group'>";
+	li+="<button data-role = 'none' class='button is-checked' data-filter='*'>all</button>";
+	li+="<button data-role = 'none' class='button' data-filter='.metal'>metal</button>";
+	li+="<button data-role = 'none' class='button' data-filter='.transition'>transition</button>";
+	li+="<button data-role = 'none' class='button' data-filter='.alkali, .alkaline-earth'>alkali and alkaline-earth</button>";
+	li+="<button data-role = 'none' class='button' data-filter=':not(.transition)'>not transition</button>";
+	li+="<button data-role = 'none' class='button' data-filter='.metal:not(.transition)'>metal but not transition</button>";
+	li+="<button data-role = 'none' class='button' data-filter='d_lgiGreaterThan50'>d_lgi > 50</button>";
+	li+="<button data-role = 'none' class='button' data-filter='ium'>name ends with &ndash;ium</button>";
+	li+="</div>";*/
+	li+="<h2>Sort</h2>";
+	li+="<div id='sorts' class='button-group'>";
+	li+="<button data-role = 'none' class='button is-checked' data-sort-by='original-order'>original order</button>";
+	li+="<button data-role = 'none' class='button' data-sort-by='name'>name</button>";
+	li+="<button data-role = 'none' class='button' data-sort-by='d_icon'>d_icon</button>";
+	li+="<button data-role = 'none' class='button' data-sort-by='d_lgi'>d_lgi</button>";
+	li+="<button data-role = 'none' class='button' data-sort-by='d_value'>d_value</button>";
+	li+="<button data-role = 'none' class='button' data-sort-by='category'>category</button>";
+	li+="</div>"
+	li+="</div>"
+	
+$('#winpopup').html(li).trigger("create");
+$('#testdiv').on('click', function(e) {console.log(this, e);});
+for(var i =0;i < deviceList.length;i++){
+	if( deviceList[i].hasOwnProperty('Report')){	
+	console.log(deviceList[i].Report)
+	var drep=deviceList[i].Report;
+		try{
+			for (let [key, value] of Object.entries(drep)) {	
+			$('#d'+deviceList[i].IEEE+key).on('doubletap', function(e) {alert(this.id);console.log(this, e);});
+			}
+		}catch{}
+	}else{
+	
+	
+	
+	}
+}
+
+    
+
+
+
+// init Isotope
+var $grid = $('.dev_container').isotope({
+  itemSelector: '.element-item',
+  layoutMode: 'fitRows',
+  getSortData: {
+    name: '.name',
+    d_icon: '.d_icon',
+    d_lgi: '.d_lgi parseInt',
+    category: '[data-category]',
+    d_value: function( itemElem ) {
+      var d_value = $( itemElem ).find('.d_value').text();
+      return parseFloat( d_value.replace( /[\(\)]/g, '') );
+    }
+  }
+});
+
+// filter functions
+var filterFns = {
+  // show if d_lgi is greater than 50
+  d_lgiGreaterThan50: function() {
+    var d_lgi = $(this).find('.d_lgi').text();
+    return parseInt( d_lgi, 10 ) > 50;
+  },
+  // show if name ends with -ium
+  ium: function() {
+    var name = $(this).find('.name').text();
+    return name.match( /ium$/ );
+  }
+};
+
+
+// bind filter button click
+$('#filters').on( 'click', 'button', function() {
+  var filterValue = $( this ).attr('data-filter');
+  // use filterFn if matches value
+  filterValue = filterFns[ filterValue ] || filterValue;
+  $grid.isotope({ filter: filterValue });
+});
+
+// bind sort button click
+$('#sorts').on( 'click', 'button', function() {
+  var sortByValue = $(this).attr('data-sort-by');
+  $grid.isotope({ sortBy: sortByValue });
+});
+
+// change is-checked class on buttons
+$('.button-group').each( function( i, buttonGroup ) {
+  var $buttonGroup = $( buttonGroup );
+  $buttonGroup.on( 'click', 'button', function() {
+    $buttonGroup.find('.is-checked').removeClass('is-checked');
+    $( this ).addClass('is-checked');
+  });
+});
+
+
+
+			show_wpp();//{$("#winpopup" ).popup( "open" );  } 
+}   
+
+
+</script>	
+
+
+</head>
+
+
+<body class="ui-mobile-viewport ui-overlay-a" style="">
+<div  id="status" align="center">status</div>
+<!-- Home -->
+<div data-role="page" id="page1" align="center">
+	<div data-role="header" class="ui-header ui-bar-a" role="banner" style="max-width:device-width;" align="center">
+		<a href="#left-panel" data-rel="popup" data-transition="slide" data-position-to="window" data-icon="bars" class="ui-btn-left  ui-btn-icon-left" data-mini="true" data-theme="a"><span class="ui-btn-inner"><span class="ui-btn-text">Menu</span></span></a>	
+		
+		
+		
+		
+<a href="#AddDeviceDialog" data-mini="true" data-icon="plus" data-rel="popup" id="AddDeviceButton" data-role="button" data-position-to="window" >Zigbee</a>
+<a href="#" data-mini="true" data-icon="plus"   data-role="button" data-position-to="window" onclick="openBle();">BLE</a>
+
+
+		
+		
+		
+		
+		<a href="#right-panel" data-rel="popup" data-transition="slide" data-position-to="window" data-icon="home" class="ui-btn-right ui-btn-icon-right " data-mini="true" data-theme="c">	
+		<span class="ui-btn-inner">
+		<span class="ui-btn-text">Home</span>
+		<span class="ui-icon ui-icon-home">&nbsp;</span>
+		</span></a>
+		
+		
+		
+	</div> 
+
+	
+		<div id="devListDiv" data-role="collapsible-set" style="max-width:device-width;" align="center" >
+			<div data-role="listview" data-inset="true" id="devList" data-theme="a" >
+			</div>
+		</div>
+	 
+	 
+	 
+	 
+<div id="device-table"></div>
+
+
+
+ <div data-role="panel" data-display="overlay" data-theme="c" data-position="left" id="left-panel">
+        <ul data-role="listview">
+       <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+		<a href="#"  data-role="button" id="matrix" onclick="showmatrix();">Matrix</a>		
+		<a href="#page3" data-role="button" id="fwmanager">Managing Firmware</a> 
+		<a href="#page5" data-role="button" id="group">Group</a>		
+		<a href="#page4" data-role="button" id="drawBind">Bind Table</a>
+		<a href="#page6" data-role="button" >Script</a>		
+		<!-- <a href="#"  data-role="button" id="savedev">savedev</a> -->
+		<a href="#page2" data-role="button" id="getConfig">Setup</a> 		
+		<a href="#"  data-role="button" id="initGate">Init Gate</a>	
+		<a href="#"  data-role="button" id="restart" onclick="WSsend('RebootESP');">Restart</a>			
+		<a href="#"  data-role="button" id="restart" onclick="WSsend('Shutdown');">Shutdown</a>
+		
+		        
+</ul>
+    </div><!-- /panel -->	 
+
+ <div data-role="panel" data-display="overlay" data-theme="c" data-position="right" id="right-panel">
+       <ul data-role="listview">
+       <li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
+		<a href="#" data-role="button" id="room">Зал</a> 
+		<a href="#" data-role="button" id="room">Детская</a> 
+		<a href="#" data-role="button" id="room">Спальня</a>		
+		<a href="#" data-role="button" id="room">Кухня</a>
+		<a href="#" data-role="button" id="room">Ванная</a>
+		</ul>
+
+        
+    </div>
+
+<div data-history="false" data-role="popup" id="wsstatus" data-overlay-theme="c" data-theme="c" style="max-width:device-width;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true" data-corners="true" data-transition="none" data-position-to="origin" data-dismissible="false">
+
+</div>
+
+
+
+
+
+
+	 
+<div data-history="false" data-role="popup" id="AddDeviceDialog" data-overlay-theme="c" data-theme="c" style="max-width:device-width;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true" data-corners="true" data-transition="none" data-position-to="origin" data-dismissible="false">
+	<div data-role="header" data-theme="c" class="ui-corner-top ui-header ui-bar-a" role="banner">
+	<div role="main" class="ui-content"  style="width:300px;">
+		<h3 class="ui-title">Searching for new devices</h3>
+		<!-- <script>sel_scanChannels();</script>		 -->
+		<div><table><tr><td width='50%'>
+			scanChannels
+			</td><td><input width='30' type='text' data-role="none" list='scanChannels' onchange="WSsend('addDevice||'+ this.value +'')" >
+			<datalist id='scanChannels'><option value='11'><option value='15'><option value='20'><option value='25'><option value='12'><option value='13'>
+			<option value='14'><option value='16'><option value='17'><option value='18'><option value='19'><option value='21'><option value='22'><option value='23'><option value='24'><option value='26'>
+			</datalist>
+		</td></tr></table>
+		</div>
+
+
+		<div id="joinstatus"> Process </div>
+		<br>
+		<a href="#" id="AddDeviceDoneButton" data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true"  data-wrapperels="span" class="ui-btn ui-btn-corner-all">
+		<span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Done</span></span></a>   
+	 </div>
+	</div>
+</div>	
+		<div data-history="false" data-role="popup" id="voice" class="ui-content"
+			 style="max-width:300px" data-dismissible="false">
+		   <a href="#" data-rel="back" data-role="button" data-theme="b"
+			 data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+		   <p id="q">xz</p>
+		</div>
+	
+</div>  
+
+
+
+   	
+<div data-role="page" id="page2" align="center">
+	<div data-role="header" class="ui-header ui-bar-a" role="banner" style="max-width:device-width;" align="center">
+	<h2 class="ui-title" role="heading" >ZESP Config</h2>
+	<a href="#page1" data-icon="back">Main</a>
+	</div>		
+<div data-role="content" align="center" style="max-width:600px; >
+	<div class = " ui-block-a ui-content" data-role = "collapsible-set" id="jsconfig">
+
+	</div>
+	<table>
+		<tr>
+			<td><input type='submit' id='saveConfig' value='Save' ></td>
+			<td><input type='submit' id='RebootESP' value='Restart'></td>
+		</tr>
+	</table>
+</div>  	
+
+
+
+	
+
+<div data-role="page" id="page3" align="center">
+<div data-role="header" class="ui-header ui-bar-a" role="banner"  align="center"><h2 class="ui-title" role="heading" >Firmware manager</h2><a href="#page1" data-icon="back">Main</a></div>
+	<div data-role="content" align="center" data-theme="c" >
+		<div id="fwflash" style="max-width:600px;" >
+			<table border='0' width='100%' cellspacing="0" cellpadding="0">		
+			<div> <tr><th align="center">Chip</th>
+					  <th align="center">id</th>
+					  <th align="center">rev</th>
+					  <th align="center">size</th>
+					  <td><input type="button" data-mini='true' value="Connect" id="ccflashc"></td>
+					</tr>
+			</div>
+			<div> <tr><td align="center"><div id='Chip'>-</div></td>
+					  <td align="center"><div id='Chip_ID'>-</div></td>
+					  <td align="center"><div id='Rev'>-</div></td>
+					  <td align="center"><div id='Size'>-</div></td>
+					  </td>
+				  </tr>
+			</div>	
+			</table>
+		</div>
+
+
+	</div>		
+				
+			<div id="fwlist" style="max-width:600px;" >
+				<a href="#" data-mini='true'data-role="button" id="getfwlist">Get from server</a> 
+				
+			</div>	
+					<div data-history="false" data-role="popup" id="webdlprogress"  data-theme="c" style="max-width:device-width;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="false" data-corners="true" data-transition="none" data-position-to="origin" data-dismissible="false">
+						<div data-role="header" data-theme="c" >
+							<div role="main" class="ui-content" >
+								<h3 class="ui-title">Download in progress</h3>
+								<div id="txtprogres"> Processing </div>
+								<a href="#page1" id="webdlprogressDoneButton"  data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c">
+								<span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Done</span></span></a>   
+							</div>
+						</div>		
+					</div>
+</div> 
+			
+<div data-role="page" id="page4" align="center">
+<div data-role="header" class="ui-header ui-bar-a" role="banner"  align="center"><h2 class="ui-title" role="heading" >Binding</h2><a href="#page1" data-icon="back">Main</a></div>
+	<div data-role="content" align="center" data-theme="a" id="bindForm" >
+		<select data-mini="true" id="srcA"  onchange="drawBindEP(this.value);"><option>src Adr</option></select>
+		<select data-mini="true"id="srcEP" onchange="drawBindCL(this.value);"><option>src EP</option></select>
+		<select data-mini="true"id="clID" onchange="drawBinddstA(this.value);"><option>Cluster</option></select>
+		<select data-mini="true"id="dstA" onchange="drawBinddstEP();"><option>dst Adr</option></select>
+		<select data-mini="true"id="dstEP"><option>dst EP</option></select>
+			<table>
+				<tr>
+					<td><input type='submit' id='btBind' value='Bind' data-mini="true"></td>
+					<td><input type='submit' id='btuBind' value='Unbind'data-mini="true"></td>
+				</tr>
+			</table>
+	</div>
+</div> 	
+
+<div data-role="page" id="page5" align="center">
+	<div data-role="header" class="ui-header ui-bar-a" role="banner" style="max-width:device-width;" align="center">
+		<h2 class="ui-title" role="heading" >Groups</h2>
+		<a href="#page1" data-icon="back">Main</a>
+	<a href="#AddGroupDialog" data-mini="true" data-icon="plus" data-rel="popup" id="AddGroupButton" data-role="button" data-position-to="window" >Group</a>	
+	
+	</div>		
+<div data-role="content" align="center" style="max-width:600px; >
+	<div class="ui-block-a ui-content" data-role="collapsible-set" id="groupsjson">
+
+	<div  align="center"  id="list_groups" ></div>	
+	
+	
+
+
+<div data-history="false" data-role="popup" id="AddGroupDialog" data-overlay-theme="c" data-theme="c" style="max-width:device-width;" class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" aria-disabled="false" data-disabled="false" data-shadow="true" data-corners="true" data-transition="none" data-position-to="origin" data-dismissible="false">
+	<div data-role="header" data-theme="c" class="ui-corner-top ui-header ui-bar-a" role="banner">
+	<div role="main" class="ui-content"  style="width:300px;">
+		<h3 class="ui-title">Add new group</h3>
+
+		<table border="0">
+	
+				<tr>
+					<td>Adress ID</td>
+					<td>Name Group</td>
+					<td></td>					
+				</tr>			
+				<tr>
+					<td><input type="number" min="0001" max="99999"   id="group_adress" data-mini="true"  value=""></td>			
+					<td><input type="text"maxlength="16"  id="group_name"data-mini="true"  value=""></td>			
+					<td><input type="button" data-mini="true" id='mkGroup' value='+' onclick=add_group();></td>
+				</tr>
+
+		</table>
+
+		<a href="#"  data-role="button" data-inline="true" data-rel="back" data-theme="c" data-corners="true" data-shadow="true"  data-wrapperels="span" class="ui-btn ui-btn-corner-all"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Done</span></span></a>
+		   
+	 </div>
+	</div>
+</div>
+
+
+
+
+
+
+</div>	
+	
+</div>  
+
+<div data-role="page" id="page6" align="center">
+
+<div data-role="header" class="ui-header ui-bar-a" role="banner" style="max-width:device-width;" align="center">
+<a href="#page1" data-icon="back">Main</a><a href="#Scriptmenu" data-mini="true"  data-rel="popup"  data-role="button" data-position-to="window" >Menu</a>
+				<div role="heading" id="mnBlokly" class="button-group ui-title" align="center"> 
+					 <button data-role = "none" class="button" id="showCode" >js</button> 
+					 <button data-role = "none" class="button" id="showXML" >xml</button> 
+					 <button data-role = "none" class="button"  id="importxml" >import</button> 
+					 <button data-role = "none" class="button"  id="exportxml" >export</button> 					
+			</div>	
+	</div>	
+			
+
+    <div class="container">
+        <div class="row">
+            <div class="col-9" id="blocklyDiv">
+			</div>
+            <div class="col-3" id="blocklyDiv2" >
+
+               
+               
+				<pre style="text-align: justify;"><textarea cols="5" rows="5" class="xml" id='rep_win'> </textarea></pre>
+                <pre style="text-align: justify;"><code class="JavaSciprt" id='jsCode'></code></pre>
+				<pre style="text-align: justify;"><textarea class="xml" id='xmlCode'> </textarea></pre>
+            </div>
+        </div>
+
+	
+	
+	
+	
+	<div id="Scriptmenu" data-role="panel" data-display="overlay"  data-position="right"  >
+      	 <ul data-role="listview">
+     	  	<a href="#" data-role="button" data-rel="close" onclick="save_toXml();"id="saveXML">Save Blocks</a>
+			<a href="#" data-role="button" data-rel="close" onclick="save_toJS();show_wpp();">Save JavaSciprt</a>			
+			<a href="#" data-role="button" data-rel="close" id="srestart" onclick="WSsend('RebootESP');">&#8634 Restart</a>				 
+		 </ul>
+	</div>		
+
+<div data-history="false" data-role="popup" id="selDevice"  style="max-width:device-width;" >
+	
+	<div role="main" class="ui-content"  >
+		<a href="#"  data-role="button" id="jqDone" data-rel="back" >Done</a>
+		<div id="scriptdevlist"></div>
+
+				   
+	</div>
+	
+</div>
+
+	<div id="progrespopup" data-theme="a">
+		<div role="main" class="ui-content"  >
+
+			<div> Wait response</div>			
+			<div id="progress_v"></div>
+			<!-- <a href="#"  data-role="button" id="jqDone" data-rel="back" >Done</a> -->
+					   
+		</div>
+	</div>
+
+	<div id="winpopup" data-theme="a" role="main" class="ui-content">
+		<a href="#"  data-role="button" data-rel="back" >Done</a>
+	</div>
+
+
+
+
+
+
+
+</div>
+	
+        
+
+
+<script> 
+//$( "#progrespopup" ).enhanceWithin().popup();
+try {
+  var recognition = new webkitSpeechRecognition();
+  recognition.onresult = function(event) {if (event.results.length > 0){document.getElementById('q').innerHTML =  event.results[0][0].transcript;$( "#voice" ).popup( "open" );}}
+} catch (e) {
+  var recognition = null;
+}
+
+$("#AddDeviceButton").click(function() {
+//clear the device list from prvious run
+var li = '';
+$('#addDevDevList').html(li);      
+$('#addDevDevList').html(li).promise().done(function () {
+//refresh here - $(this) refers to ul here
+$(this).listview("refresh");
+//causes a refresh to happen on the elements such as button etc. WHICH lie inside ul
+$(this).trigger("create");
+});
+
+$.mobile.loading("show");
+AddNewDevMode = true;
+//store the previous dev list sowe know the new devices
+prevDeviceList = self.deviceList;
+//open the network
+WSsend('addDevice'); 
+//start a timer to open the network every 55s
+$('#joinstatus').html("Wait incoming").trigger("create");
+AddDevTimer = setInterval(function () {
+//open the network for another 60s
+WSsend('getDeviceList');
+WSsend('addDevice'); 
+
+}, 55000); 
+
+});
+
+$("#AddDeviceDoneButton").click(function() {
+$.mobile.loading("hide");
+AddNewDevMode = true;
+clearInterval(AddDevTimer);
+WSsend('addDeviceDone');
+});
+$("#initGate").click(function() {
+$.mobile.loading("show");
+
+WSsend('initDevice');
+var a=1;
+});
+
+$("#getConfig").click(function() {
+WSsend('loadConfig');
+});
+$("#drawBind").click(function() {
+drawBind();
+});
+
+$("#RebootESP").click(function() {
+WSsend('RebootESP');
+
+});
+$("#saveConfig").click(function() {
+sendsaveConfig();
+});
+
+
+
+
+
+
+$("#updatefw").click(function() {
+$("#webdlprogress").popup("open", { transition: "flip"   });
+updatefw();
+});
+
+$("#ccflashc").click(function() {
+WSsend('cmd|ccflashc');
+});
+
+$("#btBind").click(function() {
+$('#progress_v').html("send").trigger("create");	
+	
+	var bz="02";	
+	var dstEP=$("#dstEP").val();
+	if(dstEP==""){
+		bz+="01"; //todo bind mode		
+	}else{
+		bz+="03";	
+	}
+	for(var i =0;i < self.deviceList.length;i++){
+			var z=self.deviceList[i];
+			if($("#srcA").val()==z.IEEE){bz+=z.Device;}
+		}
+	bz+=$("#srcA").val();
+	bz+=$("#srcEP").val();
+	bz+=$("#clID").val();
+	bz+=$("#dstA").val();
+	bz+=$("#dstEP").val();
+
+	sendbc(bz);
+	show_response()
+});
+$("#btuBind").click(function() {
+$('#progress_v').html("send").trigger("create");	
+	var bz="03";	
+	var dstEP=$("#dstEP").val();
+	if(dstEP==""){
+		bz+="01"; //todo bind mode		
+	}else{
+		bz+="03";	
+	}
+	for(var i =0;i < self.deviceList.length;i++){
+			var z=self.deviceList[i];
+			if($("#srcA").val()==z.IEEE){bz+=z.Device;}
+		}
+	bz+=$("#srcA").val();
+	bz+=$("#srcEP").val();
+	bz+=$("#clID").val();
+	bz+=$("#dstA").val();
+	bz+=$("#dstEP").val();
+
+	sendbc(bz);
+	show_response()
+});
+
+
+
+$("#savedev").click(function() {
+	//WSsend('cmdsavedev');
+	SaveJson("/devicesjs.txt",JSON.stringify(deviceList));
+	
+});
+
+$("#getfwlist").click(function() {
+loadfwlist();
+});
+
+function f_updatefw(){
+$("#webdlprogress").popup("open", { transition: "flip"   });
+updatefw();
+}
+function f_flccfw( adress,path){
+$("#webdlprogress").popup("open", { transition: "flip"   });
+WSsend('cmddownfw|'+adress+'|'+path);
+
+}
+function sendbc(data){
+//var buffer = new Uint8Array(data.match(/[\da-f]{2}/gi).map(function (h) {return parseInt(h, 16)}));
+var buffer = new Uint8Array(data.match(/[\da-f]{2}/gi).map(function (h) {return parseInt(h, 16)}))
+console.log(data);
+WSsend(buffer);
+}
+
+
+
+
+function Hex(d, padding) {
+    var hex = Number(d).toString(16);
+    padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
+
+    while (hex.length < padding) {
+        hex = "0" + hex;
+    }
+
+    return hex;
+}
+ 
+function SaveJson(path,data){WSsend('SaveJson|'+path+'|'+data);}
+
+//$('#srcA').delegate('li', 'click', drawBindEP);
+
+
+/*  document.addEventListener('click', function(event) {
+    console.log(event.target.parentNode);	
+	let id = event.target.dataset.toggleId;
+    if (!id) return;
+
+    let elem = document.getElementById(id);
+
+    elem.hidden = !elem.hidden;
+  });*/
+
+window.onload = function() {
+$( function() {$( "#progrespopup" ).enhanceWithin().popup();});
+$( function() {$( "#winpopup" ).enhanceWithin().popup();});    
+
+if( isMobile.any() ){ console.log('Mobile');}else{console.log('desktop');}
+AddTimer = setInterval(function () {
+WSsend('LoadJson|/groups.json');
+get_Mi_lamp();
+getDeviceList();
+WSsend('LoadJson|/location.json');
+
+clearInterval(AddTimer);}, 1500);
+
+
+
+
+
+
+}; //getlist 1.5s
+
+function rgb_to_cie(red, green, blue) {
+	// Apply a gamma correction to the RGB values, which makes the color more vivid and more the like the color displayed on the screen of your device
+	red 	= (red > 0.04045) ? Math.pow((red + 0.055) / (1.0 + 0.055), 2.4) : (red / 12.92);
+	green 	= (green > 0.04045) ? Math.pow((green + 0.055) / (1.0 + 0.055), 2.4) : (green / 12.92);
+	blue 	= (blue > 0.04045) ? Math.pow((blue + 0.055) / (1.0 + 0.055), 2.4) : (blue / 12.92);
+	// RGB values to XYZ using the Wide RGB D65 conversion formula
+	const X 		= red * 0.664511 + green * 0.154324 + blue * 0.162028;
+	const Y 		= red * 0.283881 + green * 0.668433 + blue * 0.047685;
+	const Z 		= red * 0.000088 + green * 0.072310 + blue * 0.986039;
+	// Calculate the xy values from the XYZ values
+	let x 		= (X / (X + Y + Z)).toFixed(4);let y 		= (Y / (X + Y + Z)).toFixed(4);
+	if (isNaN(x)) { x = 0;}
+	if (isNaN(y)) { y = 0;}
+	return [(x*65279).toFixed(0), (y*65279).toFixed(0)];
+}
+
+</script>
+
+</body>
+
+</html>

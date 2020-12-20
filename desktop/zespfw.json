@@ -1,0 +1,10 @@
+[
+  {
+    "ModelId": "ZESP",
+    "board": "esp32",
+    "link": "http:/82.146.46.112/fw/zesp.bin",
+    "ver": "Beta29092020",
+    "Manufacturer": "VLK_SW",
+    "Description": " "
+  }
+]

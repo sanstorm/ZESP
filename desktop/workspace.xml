@@ -1,0 +1,844 @@
+<xml  id="workspaceBlocks" >
+  <variables>
+    <variable type="interval" id="cheklighthub">cheklighthub</variable>
+    <variable type="interval" id="cheklight">cheklight</variable>
+    <variable id=";7`{!Ee9,JJ+JNqoV(^U">i</variable>
+    <variable type="timeout" id="timeout_name">timeout_name</variable>
+    <variable type="timeout" id="timeout_name2">timeout_name2</variable>
+    <variable type="timeout" id="timeout_name4">timeout_name4</variable>
+    <variable type="timeout" id="timeout_name3">timeout_name3</variable>
+  </variables>
+  <block type="zigbeeEvent.on" collapsed="true" disabled="true" x="-439" y="-507">
+    <field name="OID">00158D0003961E4F</field>
+    <value name="v1">
+      <block type="text">
+        <field name="TEXT">00158D0003961E4F</field>
+      </block>
+    </value>
+    <statement name="INTCODE">
+      <block type="controls_if">
+        <value name="IF0">
+          <block type="logic_compare">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="report">
+                <field name="v3">Data</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="text">
+                <field name="TEXT">0x00</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="telegram_send">
+            <field name="msgType">sendMessage</field>
+            <value name="msg">
+              <block type="text">
+                <field name="TEXT">звонят откройте</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="zigbeeEvent.on" collapsed="true" disabled="true" x="-442" y="-473">
+    <field name="OID">00158D0003CCFF04</field>
+    <value name="v1">
+      <block type="text">
+        <field name="TEXT">00158D0003CCFF04</field>
+      </block>
+    </value>
+    <statement name="INTCODE">
+      <block type="controls_if">
+        <value name="IF0">
+          <block type="logic_compare">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="report">
+                <field name="v3">Data</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="text">
+                <field name="TEXT">0x01</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="cmd_MILAMP">
+            <field name="v3">1</field>
+            <value name="v1">
+              <block type="math_number">
+                <field name="NUM">100</field>
+              </block>
+            </value>
+            <value name="v2">
+              <block type="colour_picker">
+                <field name="COLOUR">#ff0000</field>
+              </block>
+            </value>
+            <next>
+              <block type="timeouts_settimeout">
+                <field name="NAME">timeout_name</field>
+                <field name="DELAY">30</field>
+                <field name="UNIT">sec</field>
+                <statement name="STATEMENT">
+                  <block type="cmd_MILAMP">
+                    <field name="v3">0</field>
+                    <value name="v1">
+                      <block type="math_number">
+                        <field name="NUM">100</field>
+                      </block>
+                    </value>
+                    <value name="v2">
+                      <block type="colour_picker">
+                        <field name="COLOUR">#33cc00</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="mqtt_Pub">
+                        <value name="v1">
+                          <block type="text">
+                            <field name="TEXT">топикдатчика</field>
+                          </block>
+                        </value>
+                        <value name="v2">
+                          <block type="text">
+                            <field name="TEXT">0x01</field>
+                          </block>
+                        </value>
+                        <value name="v3">
+                          <block type="logic_boolean">
+                            <field name="BOOL">FALSE</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="zigbeeEvent.on" collapsed="true" disabled="true" x="-438" y="-437">
+    <field name="OID">00158D0003961E4F</field>
+    <value name="v1">
+      <block type="text">
+        <field name="TEXT">00158D0003961E4F</field>
+      </block>
+    </value>
+    <statement name="INTCODE">
+      <block type="controls_if">
+        <value name="IF0">
+          <block type="logic_compare">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="report">
+                <field name="v3">Data</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="text">
+                <field name="TEXT">0x02</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="controls_for">
+            <field name="VAR" id=";7`{!Ee9,JJ+JNqoV(^U">i</field>
+            <value name="FROM">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="TO">
+              <shadow type="math_number">
+                <field name="NUM">100</field>
+              </shadow>
+            </value>
+            <value name="BY">
+              <shadow type="math_number">
+                <field name="NUM">2</field>
+              </shadow>
+            </value>
+            <statement name="DO">
+              <block type="timeouts_settimeout">
+                <field name="NAME">timeout_name2</field>
+                <field name="DELAY">500</field>
+                <field name="UNIT">ms</field>
+                <next>
+                  <block type="cmd_MILAMP">
+                    <field name="v3">1</field>
+                    <value name="v1">
+                      <block type="convert_tostring">
+                        <value name="VALUE">
+                          <block type="variables_get">
+                            <field name="VAR" id=";7`{!Ee9,JJ+JNqoV(^U">i</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="v2">
+                      <block type="colour_picker">
+                        <field name="COLOUR">#ffffff</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </statement>
+        <next>
+          <block type="controls_if">
+            <value name="IF0">
+              <block type="logic_compare">
+                <field name="OP">EQ</field>
+                <value name="A">
+                  <block type="report">
+                    <field name="v3">Data</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="text">
+                    <field name="TEXT">0x03</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="controls_for">
+                <field name="VAR" id=";7`{!Ee9,JJ+JNqoV(^U">i</field>
+                <value name="FROM">
+                  <shadow type="math_number">
+                    <field name="NUM">100</field>
+                  </shadow>
+                </value>
+                <value name="TO">
+                  <shadow type="math_number">
+                    <field name="NUM">1</field>
+                  </shadow>
+                </value>
+                <value name="BY">
+                  <shadow type="math_number">
+                    <field name="NUM">2</field>
+                  </shadow>
+                </value>
+                <statement name="DO">
+                  <block type="timeouts_settimeout">
+                    <field name="NAME">timeout_name4</field>
+                    <field name="DELAY">500</field>
+                    <field name="UNIT">ms</field>
+                    <next>
+                      <block type="cmd_MILAMP">
+                        <field name="v3">1</field>
+                        <value name="v1">
+                          <block type="convert_tostring">
+                            <value name="VALUE">
+                              <block type="variables_get">
+                                <field name="VAR" id=";7`{!Ee9,JJ+JNqoV(^U">i</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="v2">
+                          <block type="colour_picker">
+                            <field name="COLOUR">#ffffff</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="zigbeeEvent.on" collapsed="true" disabled="true" x="-433" y="-406">
+    <field name="OID">00158D0003961E4F</field>
+    <value name="v1">
+      <block type="text">
+        <field name="TEXT">00158D0003961E4F</field>
+      </block>
+    </value>
+    <statement name="INTCODE">
+      <block type="controls_if">
+        <mutation else="1"></mutation>
+        <value name="IF0">
+          <block type="logic_compare">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="report">
+                <field name="v3">Data</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="text">
+                <field name="TEXT">0x00</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="cmd_ON_OFF">
+            <field name="v3">5</field>
+            <value name="v1">
+              <block type="text">
+                <field name="TEXT">1</field>
+              </block>
+            </value>
+            <value name="v2">
+              <block type="text">
+                <field name="TEXT">00</field>
+              </block>
+            </value>
+            <next>
+              <block type="sayText">
+                <field name="v3">ru</field>
+                <value name="v1">
+                  <block type="text">
+                    <field name="TEXT">нажата кнопка</field>
+                  </block>
+                </value>
+                <value name="v2">
+                  <block type="text">
+                    <field name="TEXT">15000</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="cmd_MILAMP">
+                    <field name="v3">2</field>
+                    <value name="v1">
+                      <block type="math_number">
+                        <field name="NUM">100</field>
+                      </block>
+                    </value>
+                    <value name="v2">
+                      <block type="colour_picker">
+                        <field name="COLOUR">#ffffff</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="sayText">
+            <field name="v3">ru</field>
+            <value name="v1">
+              <block type="text">
+                <field name="TEXT">отжата кнопка</field>
+              </block>
+            </value>
+            <value name="v2">
+              <block type="text">
+                <field name="TEXT">15000</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+        <next>
+          <block type="controls_if">
+            <value name="IF0">
+              <block type="logic_compare">
+                <field name="OP">EQ</field>
+                <value name="A">
+                  <block type="report">
+                    <field name="v3">Data</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="text">
+                    <field name="TEXT">0x02</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="cmd_MILAMP">
+                <field name="v3">1</field>
+                <value name="v1">
+                  <block type="math_number">
+                    <field name="NUM">100</field>
+                  </block>
+                </value>
+                <value name="v2">
+                  <block type="colour_picker">
+                    <field name="COLOUR">#ff0000</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="playSound">
+                    <field name="mute">TRUE</field>
+                    <value name="v1">
+                      <block type="text">
+                        <field name="TEXT">/opt/app/wav/test10.mp3</field>
+                      </block>
+                    </value>
+                    <value name="v2">
+                      <block type="text">
+                        <field name="TEXT">15000</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="timeouts_settimeout">
+                        <field name="NAME">timeout_name3</field>
+                        <field name="DELAY">21</field>
+                        <field name="UNIT">sec</field>
+                        <statement name="STATEMENT">
+                          <block type="cmd_MILAMP">
+                            <field name="v3">0</field>
+                            <value name="v1">
+                              <block type="math_number">
+                                <field name="NUM">100</field>
+                              </block>
+                            </value>
+                            <value name="v2">
+                              <block type="colour_picker">
+                                <field name="COLOUR">#ff0000</field>
+                              </block>
+                            </value>
+                          </block>
+                        </statement>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="zigbeeEvent.on" collapsed="true" disabled="true" x="-436" y="-378">
+    <field name="OID">00158D0000DAC793</field>
+    <value name="v1">
+      <block type="text">
+        <field name="TEXT">00158D0000DAC793</field>
+      </block>
+    </value>
+    <statement name="INTCODE">
+      <block type="controls_if">
+        <value name="IF0">
+          <block type="logic_compare">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="report">
+                <field name="v3">ClusterId</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="text">
+                <field name="TEXT">0402</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="controls_if">
+            <value name="IF0">
+              <block type="logic_compare">
+                <field name="OP">EQ</field>
+                <value name="A">
+                  <block type="report">
+                    <field name="v3">AttribId</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="text">
+                    <field name="TEXT">0000</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="console_log">
+                <value name="msg">
+                  <block type="convert_todec">
+                    <value name="VALUE">
+                      <block type="report">
+                        <field name="v3">Data</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="controls_if">
+                    <mutation elseif="2"></mutation>
+                    <value name="IF0">
+                      <block type="logic_compare">
+                        <field name="OP">GT</field>
+                        <value name="A">
+                          <block type="convert_todec">
+                            <value name="VALUE">
+                              <block type="report">
+                                <field name="v3">Data</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="math_number">
+                            <field name="NUM">2000</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO0">
+                      <block type="cmd_MILAMP">
+                        <field name="v3">0</field>
+                        <value name="v1">
+                          <block type="math_number">
+                            <field name="NUM">100</field>
+                          </block>
+                        </value>
+                        <value name="v2">
+                          <block type="colour_picker">
+                            <field name="COLOUR">#33ff33</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <value name="IF1">
+                      <block type="logic_compare">
+                        <field name="OP">GT</field>
+                        <value name="A">
+                          <block type="convert_todec">
+                            <value name="VALUE">
+                              <block type="report">
+                                <field name="v3">Data</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="math_number">
+                            <field name="NUM">2500</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO1">
+                      <block type="cmd_MILAMP">
+                        <field name="v3">1</field>
+                        <value name="v1">
+                          <block type="math_number">
+                            <field name="NUM">100</field>
+                          </block>
+                        </value>
+                        <value name="v2">
+                          <block type="colour_picker">
+                            <field name="COLOUR">#ffff66</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <value name="IF2">
+                      <block type="logic_compare">
+                        <field name="OP">GT</field>
+                        <value name="A">
+                          <block type="convert_todec">
+                            <value name="VALUE">
+                              <block type="report">
+                                <field name="v3">Data</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="math_number">
+                            <field name="NUM">2700</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO2">
+                      <block type="cmd_MILAMP">
+                        <field name="v3">1</field>
+                        <value name="v1">
+                          <block type="math_number">
+                            <field name="NUM">100</field>
+                          </block>
+                        </value>
+                        <value name="v2">
+                          <block type="colour_picker">
+                            <field name="COLOUR">#ff0000</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="timeouts_setinterval" collapsed="true" disabled="true" x="-429" y="-310">
+    <field name="NAME">cheklighthub</field>
+    <field name="INTERVAL">10</field>
+    <field name="UNIT">sec</field>
+    <statement name="STATEMENT">
+      <block type="telegram_send">
+        <field name="msgType">sendPhoto</field>
+        <value name="msg">
+          <block type="text">
+            <field name="TEXT">https://telegram.org/img/t_logo.png</field>
+          </block>
+        </value>
+        <next>
+          <block type="request" disabled="true">
+            <mutation xmlns="http://www.w3.org/1999/xhtml" with_statement="false"></mutation>
+            <field name="WITH_STATEMENT">FALSE</field>
+            <field name="LOG">log</field>
+            <value name="URL">
+              <block type="text">
+                <field name="TEXT">https://www.random.org/integers/?num=1&amp;min=1&amp;max=10&amp;col=1&amp;base=10&amp;format=plain&amp;rnd=new</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="timeouts_setinterval" collapsed="true" disabled="true" x="-433" y="-255">
+    <field name="NAME">cheklight</field>
+    <field name="INTERVAL">1000</field>
+    <field name="UNIT">ms</field>
+    <statement name="STATEMENT">
+      <block type="controls_if" disabled="true">
+        <mutation else="1"></mutation>
+        <value name="IF0">
+          <block type="logic_compare">
+            <field name="OP">LT</field>
+            <value name="A">
+              <block type="math_number">
+                <field name="NUM">1000</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="convert_tonumber">
+                <value name="VALUE">
+                  <block type="MI_light"></block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="console_log">
+            <value name="msg">
+              <block type="MI_light"></block>
+            </value>
+            <next>
+              <block type="cmd_MILAMP">
+                <field name="v3">1</field>
+                <value name="v1">
+                  <block type="math_number">
+                    <field name="NUM">100</field>
+                  </block>
+                </value>
+                <value name="v2">
+                  <block type="colour_picker">
+                    <field name="COLOUR">#ffffff</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="cmd_MILAMP">
+            <field name="v3">0</field>
+            <value name="v1">
+              <block type="math_number">
+                <field name="NUM">100</field>
+              </block>
+            </value>
+            <value name="v2">
+              <block type="colour_picker">
+                <field name="COLOUR">#ffffff</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+        <next>
+          <block type="controls_if">
+            <value name="IF0">
+              <block type="logic_compare">
+                <field name="OP">EQ</field>
+                <value name="A">
+                  <block type="convert_tonumber">
+                    <value name="VALUE">
+                      <block type="MI_button"></block>
+                    </value>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_number">
+                    <field name="NUM">1</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="cmd_MILAMP">
+                <field name="v3">2</field>
+                <value name="v1">
+                  <block type="math_number">
+                    <field name="NUM">100</field>
+                  </block>
+                </value>
+                <value name="v2">
+                  <block type="colour_picker">
+                    <field name="COLOUR">#ffffff</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="mqtt_subscribe" collapsed="true" disabled="true" x="-418" y="-204">
+    <value name="v1">
+      <block type="lists_create_with">
+        <mutation items="2"></mutation>
+        <value name="ADD0">
+          <block type="text">
+            <field name="TEXT">home/test0</field>
+          </block>
+        </value>
+        <value name="ADD1">
+          <block type="text">
+            <field name="TEXT">home/test1</field>
+          </block>
+        </value>
+      </block>
+    </value>
+    <statement name="INTCODE">
+      <block type="controls_if">
+        <value name="IF0">
+          <block type="logic_compare">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="text">
+                <field name="TEXT">home/test0</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="mqtt_msg_packet">
+                <field name="v3">topic</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="controls_if">
+            <value name="IF0">
+              <block type="logic_compare">
+                <field name="OP">EQ</field>
+                <value name="A">
+                  <block type="mqtt_msg_packet">
+                    <field name="v3">message</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="text">
+                    <field name="TEXT">playtest</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="playSound">
+                <field name="mute">TRUE</field>
+                <value name="v1">
+                  <block type="text">
+                    <field name="TEXT">/opt/app/wav/test10.mp3</field>
+                  </block>
+                </value>
+                <value name="v2">
+                  <block type="text">
+                    <field name="TEXT">15000</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+          </block>
+        </statement>
+        <next>
+          <block type="controls_if">
+            <value name="IF0">
+              <block type="logic_compare">
+                <field name="OP">EQ</field>
+                <value name="A">
+                  <block type="text">
+                    <field name="TEXT">home/test1</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="mqtt_msg_packet">
+                    <field name="v3">topic</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="controls_if">
+                <value name="IF0">
+                  <block type="logic_compare">
+                    <field name="OP">EQ</field>
+                    <value name="A">
+                      <block type="mqtt_msg_packet">
+                        <field name="v3">message</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="text">
+                        <field name="TEXT">playtest1</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <statement name="DO0">
+                  <block type="playSound">
+                    <field name="mute">TRUE</field>
+                    <value name="v1">
+                      <block type="text">
+                        <field name="TEXT">/opt/app/wav/test10.mp3</field>
+                      </block>
+                    </value>
+                    <value name="v2">
+                      <block type="text">
+                        <field name="TEXT">15000</field>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

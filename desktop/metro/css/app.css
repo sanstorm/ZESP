@@ -1,0 +1,1 @@
+table tbody tr:not(:hover) td:not(.v-data-table__mobile-row) div.hide{opacity:0}
